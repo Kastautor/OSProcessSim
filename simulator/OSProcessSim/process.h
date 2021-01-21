@@ -1,14 +1,19 @@
 #ifndef PROCESS_H
 #define PROCESS_H
-#include <map>
-#include <instruction.h>
+#include <queue>
+#include "instruction.h"
+#include "processitem.h"
 
 class Process
 {
 public:
     Process();
+    void addInstruction(Instruction *i);
+    void removeInstruction(Instruction *i);
+    ProcessItem* getGraphicalItem();
+
 private:
-    std::map<int, Instruction> instructions;
+    std::queue<Instruction*> instructions;
 };
 
 #endif // PROCESS_H

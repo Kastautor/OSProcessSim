@@ -15,7 +15,7 @@ SOURCES += \
     mainwindow.cpp \
     mybutton.cpp \
     process.cpp \
-    processgraph.cpp \
+    processitem.cpp \
     resource.cpp
 
 HEADERS += \
@@ -24,7 +24,7 @@ HEADERS += \
     mainwindow.h \
     mybutton.h \
     process.h \
-    processgraph.h \
+    processitem.h \
     resource.h
 
 FORMS += \

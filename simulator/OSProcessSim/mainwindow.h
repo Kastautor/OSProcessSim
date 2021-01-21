@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <processgraph.h>
+#include <process.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +23,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    std::map<int, ProcessGraph*> processes;
+    std::queue<Process*> processes;
+    Process *SelectedProcess;
 };
 #endif // MAINWINDOW_H

@@ -5,7 +5,6 @@
 InstructionItem::InstructionItem()
 {
     setCursor(Qt::OpenHandCursor);
-
 }
 
 void InstructionItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
