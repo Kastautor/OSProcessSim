@@ -2,8 +2,9 @@
 #include <QCursor>
 #include <QPainter>
 
-InstructionItem::InstructionItem()
+InstructionItem::InstructionItem(InstructionTypes type)
 {
+
     setCursor(Qt::OpenHandCursor);
 }
 

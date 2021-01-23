@@ -6,7 +6,6 @@ class Instruction
 {
 public:
     Instruction();
-    InstructionItem* getGraphicalItem();
 };
 
 #endif // INSTRUCTION_H

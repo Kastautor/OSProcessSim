@@ -59,14 +59,14 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QPushButton" name="processButton">
+          <widget class="QPushButton" name="addProcessButton">
            <property name="text">
             <string>Add Process</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="removeProcessButton">
            <property name="text">
             <string>Remove Process</string>
            </property>

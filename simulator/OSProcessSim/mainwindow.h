@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <process.h>
+#include <processitem.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,12 +18,13 @@ public:
 
 private slots:
     void on_sumButton_clicked();
-
-    void on_processButton_clicked();
+    void on_addProcessButton_clicked();
+    void selectProcess(ProcessItem*);
+    void on_removeProcessButton_clicked();
 
 private:
     Ui::MainWindow *ui;
-    std::queue<Process*> processes;
-    Process *SelectedProcess;
+    std::queue<ProcessItem*> processItems;
+    ProcessItem *selectedProcessItem;
 };
 #endif // MAINWINDOW_H
