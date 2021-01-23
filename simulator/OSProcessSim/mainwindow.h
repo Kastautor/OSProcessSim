@@ -24,7 +24,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    std::queue<ProcessItem*> processItems;
-    ProcessItem *selectedProcessItem;
+    ProcessItem *selectedProcessItem = 0;
 };
 #endif // MAINWINDOW_H

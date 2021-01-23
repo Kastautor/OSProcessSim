@@ -9,7 +9,7 @@ enum InstructionTypes { Operation, Load, Save};
 class InstructionItem : public QGraphicsObject
 {
 public:
-    InstructionItem(InstructionTypes type);
+    InstructionItem(InstructionTypes type, QWidget * parent = 0);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

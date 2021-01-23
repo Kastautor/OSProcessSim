@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <processitem.h>
-#include <borrar.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,14 +17,16 @@ MainWindow::~MainWindow()
 void MainWindow::on_sumButton_clicked()
 {
     // Selected process
-    selectedProcessItem->addInstructionItem(new InstructionItem(InstructionTypes::Operation));
+    if (selectedProcessItem != 0)
+    {
+        selectedProcessItem->addInstructionItem(new InstructionItem(InstructionTypes::Operation));
+    }
 }
 
 void MainWindow::on_addProcessButton_clicked()
 {
     // Add a new process
     ProcessItem *pI = new ProcessItem(this);
-    processItems.push(pI);
     ui->programsArea->layout()->addWidget(pI);
 
     // Connect mousepress event
@@ -34,29 +35,29 @@ void MainWindow::on_addProcessButton_clicked()
 
 void MainWindow::selectProcess(ProcessItem *pI)
 {
+    // Set the selected process
     selectedProcessItem = pI;
 
-    for (int i = 1; i <= processItems.size(); i++)
+    // Obtain the list of ProcessItems
+    QList<ProcessItem *> processItems = ui->programsArea->findChildren<ProcessItem *>();
+
+    // Highlight the selected process
+    for (int i = 0; i < processItems.size(); i++)
     {
-        ProcessItem *pICurrent = processItems.front();
+        ProcessItem *pICurrent = processItems.at(i);
         if (pICurrent == pI){
             pICurrent->highlight(true);
         }else{
             pICurrent->highlight(false);
         }
-        processItems.pop();
-        processItems.push(pICurrent);
     }
 }
 
 void MainWindow::on_removeProcessButton_clicked()
 {
-    for (int i = 1; i <= processItems.size(); i++)
+    if (selectedProcessItem != 0)
     {
-        ProcessItem *pICurrent = processItems.front();
-        processItems.pop();
-        if (pICurrent != selectedProcessItem){
-            processItems.push(pICurrent);
-        }
+        delete selectedProcessItem;
+        selectedProcessItem = 0;
     }
 }

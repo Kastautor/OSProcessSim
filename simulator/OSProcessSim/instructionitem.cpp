@@ -2,9 +2,8 @@
 #include <QCursor>
 #include <QPainter>
 
-InstructionItem::InstructionItem(InstructionTypes type)
+InstructionItem::InstructionItem(InstructionTypes type, QWidget * parent)
 {
-
     setCursor(Qt::OpenHandCursor);
 }
 
@@ -14,7 +13,7 @@ void InstructionItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     Q_UNUSED(widget);
 
     painter->setPen(QPen(Qt::black, 3));
-    painter->drawRoundedRect(5, 5, 90, 50, 1, 1);
+    painter->drawRoundedRect(10, 10, 80, 80, 1, 1);
 }
 
 QRectF InstructionItem::boundingRect() const

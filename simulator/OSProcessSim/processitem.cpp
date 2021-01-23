@@ -1,12 +1,10 @@
 #include "processitem.h"
 #include <QGraphicsView>
+#include "instructionitem.h"
 
 ProcessItem::ProcessItem(QWidget * parent)
     :QFrame(parent)
 {
-    // Initialize queue
-    instructionItems = new std::queue<InstructionItem*>();
-
     // Set the panel dimensions
     this->setFixedSize(100, 500);
 
@@ -27,17 +25,19 @@ ProcessItem::~ProcessItem()
 
 void ProcessItem::addInstructionItem(InstructionItem *iI)
 {
-    scene->addItem(iI);
+    instructionItems.append(iI);
+    paintEvent(nullptr);
 }
 
 void ProcessItem::paintEvent(QPaintEvent *event)
 {
-    // Create graphical representation
-    for (int l = 1; instructionItems->size(); l++)
+    // Obtain the list of instruction items
+    for (int l = 0; l < instructionItems.size(); l++)
     {
         // Add all instruction graphical items
-        InstructionItem *iI = instructionItems->front();
-        addInstructionItem(iI);
+        QGraphicsItem *iI = instructionItems.at(l);
+        iI->setPos(0, l*100);
+        scene->addItem(iI);
     }
 }
 

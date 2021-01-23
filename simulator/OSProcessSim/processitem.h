@@ -22,7 +22,7 @@ private:
     QGraphicsView *view;
     QGraphicsScene *scene;
     QRectF *border;
-    std::queue<InstructionItem*> *instructionItems;
+    QList<InstructionItem *> instructionItems;
 };
 
 #endif // PROCESSITEM_H
