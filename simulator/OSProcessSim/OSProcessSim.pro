@@ -16,7 +16,8 @@ SOURCES += \
     mybutton.cpp \
     process.cpp \
     processitem.cpp \
-    resource.cpp
+    resource.cpp \
+    scheduler.cpp
 
 HEADERS += \
     instruction.h \
@@ -25,7 +26,8 @@ HEADERS += \
     mybutton.h \
     process.h \
     processitem.h \
-    resource.h
+    resource.h \
+    scheduler.h
 
 FORMS += \
     mainwindow.ui

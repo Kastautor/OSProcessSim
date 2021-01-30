@@ -13,6 +13,9 @@ public:
     virtual ~ProcessItem();
     void addInstructionItem(InstructionItem *iI);
     void highlight(bool);
+    bool isFinished();
+    std::string step();
+    void selectNextInstruction();
 signals:
     void sendSelection(ProcessItem*);
 protected:
@@ -23,6 +26,8 @@ private:
     QGraphicsScene *scene;
     QRectF *border;
     QList<InstructionItem *> instructionItems;
+
+    InstructionItem *currentInstruction;
 };
 
 #endif // PROCESSITEM_H

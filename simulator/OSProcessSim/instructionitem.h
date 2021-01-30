@@ -13,10 +13,16 @@ public:
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    void step();
+    bool isFinished();
+    void highlight(bool);
 
 private:
     QColor color;
-    //Instruction instruction;
+    InstructionTypes type;
+    int totalCycles;
+    int cycle;
+    bool selected;
 };
 
 #endif // INSTRUCTIONITEM_H

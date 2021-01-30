@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <processitem.h>
+#include "scheduler.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,9 +22,12 @@ private slots:
     void on_addProcessButton_clicked();
     void selectProcess(ProcessItem*);
     void on_removeProcessButton_clicked();
+    void on_beginButton_clicked();
+    void on_stepButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     ProcessItem *selectedProcessItem = 0;
+    Scheduler *scheduler;
 };
 #endif // MAINWINDOW_H

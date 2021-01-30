@@ -7,6 +7,15 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    const int nAlgorithms = 3;
+    // Add the scheduler algorithm options
+    std::string Algorithms[nAlgorithms] = {"FCFS", "SFJ", "SRTN"};
+    for (int i = 0; i <= nAlgorithms-1; i++)
+    {
+        ui->algorithmSelector->addItem(QString::fromStdString(Algorithms[i]));
+    }
+
 }
 
 MainWindow::~MainWindow()
@@ -59,5 +68,26 @@ void MainWindow::on_removeProcessButton_clicked()
     {
         delete selectedProcessItem;
         selectedProcessItem = 0;
+    }
+}
+
+void MainWindow::on_beginButton_clicked()
+{
+    std::string algorithm = ui->algorithmSelector->currentText().toStdString();
+    // Pass the processes to the scheduler
+    std::list<Process*> processes;
+
+    QList<ProcessItem *> processItems = ui->programsArea->findChildren<ProcessItem *>();
+    scheduler = new Scheduler(algorithm, processItems);
+    ui->beginButton->setEnabled(false);
+    ui->stepButton->setEnabled(true);
+}
+
+void MainWindow::on_stepButton_clicked()
+{
+    std::string status = scheduler->step();
+    if(status.compare("finished") == 0){
+        ui->beginButton->setEnabled(true);
+        ui->stepButton->setEnabled(false);
     }
 }
