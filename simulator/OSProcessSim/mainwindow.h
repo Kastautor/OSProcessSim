@@ -25,9 +25,14 @@ private slots:
     void on_beginButton_clicked();
     void on_stepButton_clicked();
 
+    void on_saveButton_clicked();
+
+    void on_removeInstructionButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ProcessItem *selectedProcessItem = 0;
+    InstructionItem *selectedInstructionItem = 0;
     Scheduler *scheduler;
 };
 #endif // MAINWINDOW_H

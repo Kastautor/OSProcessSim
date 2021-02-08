@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     instruction.cpp \
     instructionitem.cpp \
+    instructionoperation.cpp \
     main.cpp \
     mainwindow.cpp \
     mybutton.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 HEADERS += \
     instruction.h \
     instructionitem.h \
+    instructionoperation.h \
     mainwindow.h \
     mybutton.h \
     process.h \

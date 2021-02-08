@@ -52,3 +52,5 @@ void InstructionItem::highlight(bool b)
     else
         selected = false;
 }
+
+

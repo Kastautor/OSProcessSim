@@ -3,6 +3,7 @@
 
 #include <QGraphicsItem>
 #include <instruction.h>
+#include <QMouseEvent>
 
 enum InstructionTypes { Operation, Load, Save};
 
@@ -16,8 +17,10 @@ public:
     void step();
     bool isFinished();
     void highlight(bool);
-
-private:
+    InstructionItem* getSelectedInstructionItem();
+signals:
+    void sendSelection(InstructionItem*);
+protected:
     QColor color;
     InstructionTypes type;
     int totalCycles;

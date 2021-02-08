@@ -15,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
     {
         ui->algorithmSelector->addItem(QString::fromStdString(Algorithms[i]));
     }
-
 }
 
 MainWindow::~MainWindow()
@@ -81,6 +80,8 @@ void MainWindow::on_beginButton_clicked()
     scheduler = new Scheduler(algorithm, processItems);
     ui->beginButton->setEnabled(false);
     ui->stepButton->setEnabled(true);
+    this->setVisible(false);
+    this->setVisible(true);
 }
 
 void MainWindow::on_stepButton_clicked()
@@ -89,5 +90,20 @@ void MainWindow::on_stepButton_clicked()
     if(status.compare("finished") == 0){
         ui->beginButton->setEnabled(true);
         ui->stepButton->setEnabled(false);
+    }
+    this->setVisible(false);
+    this->setVisible(true);
+}
+
+void MainWindow::on_saveButton_clicked()
+{
+
+}
+
+void MainWindow::on_removeInstructionButton_clicked()
+{
+    if (selectedInstructionItem != 0){
+        delete selectedInstructionItem;
+        selectedInstructionItem = 0;
     }
 }
