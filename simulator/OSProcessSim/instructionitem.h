@@ -1,19 +1,16 @@
 #ifndef INSTRUCTIONITEM_H
 #define INSTRUCTIONITEM_H
 
-#include <QGraphicsItem>
+#include <QPushButton>
 #include <instruction.h>
 #include <QMouseEvent>
 
 enum InstructionTypes { Operation, Load, Save};
 
-class InstructionItem : public QGraphicsObject
+class InstructionItem : public QPushButton
 {
 public:
     InstructionItem(InstructionTypes type, QWidget * parent = 0);
-
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     void step();
     bool isFinished();
     void highlight(bool);
@@ -21,11 +18,15 @@ public:
 signals:
     void sendSelection(InstructionItem*);
 protected:
+    virtual void paintEvent(QPaintEvent *) override;
+
     QColor color;
     InstructionTypes type;
     int totalCycles;
     int cycle;
     bool selected;
+private:
+    void paint();
 };
 
 #endif // INSTRUCTIONITEM_H

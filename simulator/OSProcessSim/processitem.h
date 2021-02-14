@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <instructionitem.h>
 #include "process.h"
+#include <QVBoxLayout>
 
 class ProcessItem: public QFrame
 {
@@ -12,22 +13,19 @@ public:
     ProcessItem(QWidget * parent = 0);
     virtual ~ProcessItem();
     void addInstructionItem(InstructionItem *iI);
-    void highlight(bool);
+    QList<InstructionItem *> getInstructions();
     bool isFinished();
     std::string step();
     void selectNextInstruction();
+    void highlight(bool);
 signals:
     void sendSelection(ProcessItem*);
 protected:
-    void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
-private:
-    QGraphicsView *view;
-    QGraphicsScene *scene;
-    QRectF *border;
-    QList<InstructionItem *> instructionItems;
 
+private:
     InstructionItem *currentInstruction;
+    QVBoxLayout *layout;
 };
 
 #endif // PROCESSITEM_H

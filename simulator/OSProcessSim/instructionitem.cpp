@@ -1,34 +1,26 @@
 #include "instructionitem.h"
 #include <QCursor>
 #include <QPainter>
+#include <QDebug>
 
 InstructionItem::InstructionItem(InstructionTypes type, QWidget * parent)
 {
-    setCursor(Qt::OpenHandCursor);
     this->type = type;
     cycle = 0;
     totalCycles = 4;
     selected = false;
+    //paint();
 }
 
-void InstructionItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void InstructionItem::paint()
 {
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
+    setCursor(Qt::OpenHandCursor);
+    QPainter *painter = new QPainter();
 
-    if (selected == true){
-        painter->setPen(QPen(Qt::blue, 3));
-    }else{
-        painter->setPen(QPen(Qt::black, 3));
-    }
+    this->adjustSize();
+
     painter->drawRoundedRect(10, 10, 80, 80, 1, 1);
-
     painter->drawText(30, 30, QString::number(cycle) + " / " + QString::number(totalCycles));
-}
-
-QRectF InstructionItem::boundingRect() const
-{
-    return QRectF(-15.5, -15.5, 34, 34);
 }
 
 void InstructionItem::step()
@@ -53,4 +45,12 @@ void InstructionItem::highlight(bool b)
         selected = false;
 }
 
+void InstructionItem::paintEvent(QPaintEvent *e)
+{
+    QPushButton::paintEvent(e);
+    QPainter painter(this);
+
+    painter.drawText(10, 15, QString::number(cycle) + " / " + QString::number(totalCycles));
+    qWarning() << "updating" << this << "paint";
+}
 

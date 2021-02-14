@@ -74,7 +74,6 @@ void MainWindow::on_beginButton_clicked()
 {
     std::string algorithm = ui->algorithmSelector->currentText().toStdString();
     // Pass the processes to the scheduler
-    std::list<Process*> processes;
 
     QList<ProcessItem *> processItems = ui->programsArea->findChildren<ProcessItem *>();
     scheduler = new Scheduler(algorithm, processItems);
@@ -87,9 +86,12 @@ void MainWindow::on_beginButton_clicked()
 void MainWindow::on_stepButton_clicked()
 {
     std::string status = scheduler->step();
+    selectProcess(scheduler->getCurrentProcess());
+
     if(status.compare("finished") == 0){
         ui->beginButton->setEnabled(true);
         ui->stepButton->setEnabled(false);
+        qDebug("All programs are finished");
     }
     this->setVisible(false);
     this->setVisible(true);

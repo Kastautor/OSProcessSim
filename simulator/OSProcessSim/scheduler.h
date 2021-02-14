@@ -9,7 +9,7 @@ class Scheduler
 public:
     Scheduler(std::string, QList<ProcessItem *>);
     std::string step();
-
+     ProcessItem *getCurrentProcess();
 private:
     void selectNextProcess();
     std::string algorithm;

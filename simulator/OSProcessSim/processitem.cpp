@@ -9,15 +9,15 @@ ProcessItem::ProcessItem(QWidget * parent)
 
     // Set the panel dimensions
     this->setFixedSize(100, 500);
+    this->setFrameStyle(QFrame::Box);
 
-    // Create graphical view
-    view = new QGraphicsView(this);
-    scene = new QGraphicsScene(0, 0, 100, 500);
+    //Set vertical layout
+    layout = new QVBoxLayout();
+    this->setLayout(layout);
 
-    highlight(false);
-
-    view->setScene(scene);
-    view->show();
+    //layout->addWidget(new QPushButton("1"));
+    //layout->addWidget(new QPushButton("2"));
+    layout->addItem(new QSpacerItem(0,500,QSizePolicy::Expanding));
 }
 
 ProcessItem::~ProcessItem()
@@ -27,19 +27,25 @@ ProcessItem::~ProcessItem()
 
 void ProcessItem::addInstructionItem(InstructionItem *iI)
 {
-    instructionItems.append(iI);
+    //QList<QPushButton *> instructionItems = this->findChildren<QPushButton *>();
+    layout->insertWidget(layout->count()-1, iI);
     paintEvent(nullptr);
 }
 
-void ProcessItem::paintEvent(QPaintEvent *event)
+QList<InstructionItem *> ProcessItem::getInstructions()
 {
-    // Obtain the list of instruction items
-    for (int l = 0; l < instructionItems.size(); l++)
+    QList<InstructionItem *> instructionItems = findChildren<InstructionItem *>();
+    return instructionItems;
+}
+
+void ProcessItem::highlight(bool b)
+{
+    if (b)
     {
-        // Add all instruction graphical items
-        InstructionItem *iI = instructionItems.at(l);
-        iI->setPos(0, l*100);
-        scene->addItem(iI);
+        this->setLineWidth(2);
+    }else
+    {
+        this->setLineWidth(1);
     }
 }
 
@@ -48,26 +54,14 @@ void ProcessItem::mousePressEvent(QMouseEvent *event)
     emit sendSelection(this);
 }
 
-void ProcessItem::highlight(bool b)
-{
-    // Code to highlight the process and select it
-    border = new QRectF(scene->sceneRect());
-    QPen pen;
-    pen.setWidth(4);
-    if (b){
-        pen.setColor(Qt::blue);
-        //scene->setBackgroundBrush(Qt::red);
-    }else{
-        pen.setColor(Qt::black);
-        //scene->setBackgroundBrush(Qt::blue);
-    }
-    scene->addRect(*border, pen);
-}
-
 bool ProcessItem::isFinished()
 {
     bool allFinished = true;
-    for(int i = 0; i < instructionItems.size(); i++){
+
+    // Obtain the list of instruction items
+    QList<InstructionItem *> instructionItems = getInstructions();
+    for (int i = 0; i < instructionItems.size(); i++)
+    {
         allFinished = allFinished && instructionItems.at(i)->isFinished();
     }
     return allFinished;
@@ -91,6 +85,8 @@ std::string ProcessItem::step()
 
 void ProcessItem::selectNextInstruction()
 {
+    // Obtain the list of instruction items
+    QList<InstructionItem *> instructionItems = getInstructions();
     for (int i = 0; i < instructionItems.size(); i++){
         InstructionItem *ins = instructionItems.at(i);
         if(!ins->isFinished()){
@@ -99,5 +95,6 @@ void ProcessItem::selectNextInstruction()
         }
     }
 }
+
 
 

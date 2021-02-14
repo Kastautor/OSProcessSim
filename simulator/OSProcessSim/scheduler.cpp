@@ -23,6 +23,8 @@ std::string Scheduler::step()
     }else{
         return "in process";
     }
+    // Update process representation
+    currentProcess->repaint();
 }
 
 void Scheduler::selectNextProcess(){
@@ -32,9 +34,14 @@ void Scheduler::selectNextProcess(){
         ProcessItem *p = processes.at(i);
         if (!p->isFinished()){
             currentProcess = p;
-            p->highlight(true);
+            return;
         }else{
             currentProcess = 0;
         }
     }
+}
+
+ProcessItem * Scheduler::getCurrentProcess()
+{
+    return currentProcess;
 }
