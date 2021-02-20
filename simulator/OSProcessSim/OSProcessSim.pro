@@ -9,24 +9,18 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    instruction.cpp \
     instructionitem.cpp \
     instructionoperation.cpp \
     main.cpp \
     mainwindow.cpp \
-    mybutton.cpp \
-    process.cpp \
     processitem.cpp \
     resource.cpp \
     scheduler.cpp
 
 HEADERS += \
-    instruction.h \
     instructionitem.h \
     instructionoperation.h \
     mainwindow.h \
-    mybutton.h \
-    process.h \
     processitem.h \
     resource.h \
     scheduler.h

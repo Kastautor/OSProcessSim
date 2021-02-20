@@ -27,7 +27,8 @@ std::string Scheduler::step()
     currentProcess->repaint();
 }
 
-void Scheduler::selectNextProcess(){
+void Scheduler::selectNextProcess()
+{
     // Select next process
     // FCFS method
     for (int i = 0; i < processes.size(); i++){
@@ -44,4 +45,23 @@ void Scheduler::selectNextProcess(){
 ProcessItem * Scheduler::getCurrentProcess()
 {
     return currentProcess;
+}
+
+int Scheduler::getTotalCycles() const
+{
+    int totalCycles = 0;
+
+    foreach(ProcessItem *p, processes)
+        totalCycles += p->getTotalCycles();
+
+    return totalCycles;
+}
+
+int Scheduler::getCycles() const
+{
+    int cycles = 0;
+    foreach(ProcessItem *p, processes)
+        cycles += p->getCycles();
+
+    return cycles;
 }

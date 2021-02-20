@@ -28,6 +28,7 @@ private slots:
     void on_saveButton_clicked();
 
     void on_removeInstructionButton_clicked();
+    QList<ProcessItem *> getProcesses() const;
 
 private:
     Ui::MainWindow *ui;

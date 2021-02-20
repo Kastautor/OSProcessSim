@@ -32,7 +32,7 @@ void ProcessItem::addInstructionItem(InstructionItem *iI)
     paintEvent(nullptr);
 }
 
-QList<InstructionItem *> ProcessItem::getInstructions()
+QList<InstructionItem *> ProcessItem::getInstructions() const
 {
     QList<InstructionItem *> instructionItems = findChildren<InstructionItem *>();
     return instructionItems;
@@ -59,10 +59,9 @@ bool ProcessItem::isFinished()
     bool allFinished = true;
 
     // Obtain the list of instruction items
-    QList<InstructionItem *> instructionItems = getInstructions();
-    for (int i = 0; i < instructionItems.size(); i++)
+    foreach (InstructionItem *item, getInstructions())
     {
-        allFinished = allFinished && instructionItems.at(i)->isFinished();
+        allFinished = allFinished && item->isFinished();
     }
     return allFinished;
 }
@@ -86,15 +85,36 @@ std::string ProcessItem::step()
 void ProcessItem::selectNextInstruction()
 {
     // Obtain the list of instruction items
-    QList<InstructionItem *> instructionItems = getInstructions();
-    for (int i = 0; i < instructionItems.size(); i++){
-        InstructionItem *ins = instructionItems.at(i);
-        if(!ins->isFinished()){
-            currentInstruction = ins;
+    foreach (InstructionItem *item, getInstructions())
+    {
+        if(!item->isFinished()){
+            currentInstruction = item;
             currentInstruction->highlight(true);
         }
     }
 }
 
+int ProcessItem::getTotalCycles() const
+{
+    int totalCycles = 0;
+    foreach (InstructionItem *item, getInstructions())
+        totalCycles += item->getTotalCycles();
 
+    return totalCycles;
+}
 
+int ProcessItem::getCycles() const
+{
+    int cycles = 0;
+    foreach (InstructionItem *item, getInstructions())
+        cycles += item->getCycles();
+
+    return cycles;
+}
+
+void ProcessItem::reset()
+{
+    QList<InstructionItem *> instructionItems = getInstructions();
+    foreach(InstructionItem *item, instructionItems)
+        item->reset();
+}

@@ -75,10 +75,16 @@ void MainWindow::on_beginButton_clicked()
     std::string algorithm = ui->algorithmSelector->currentText().toStdString();
     // Pass the processes to the scheduler
 
-    QList<ProcessItem *> processItems = ui->programsArea->findChildren<ProcessItem *>();
-    scheduler = new Scheduler(algorithm, processItems);
+
+    foreach(ProcessItem *process, getProcesses())
+        process->reset();
+
+    scheduler = new Scheduler(algorithm, getProcesses());
+
+
     ui->beginButton->setEnabled(false);
     ui->stepButton->setEnabled(true);
+    ui->totalCyclesLabel->setText("Steps: " + QString::number(scheduler->getCycles()) + " / " + QString::number(scheduler->getTotalCycles()));
     this->setVisible(false);
     this->setVisible(true);
 }
@@ -93,6 +99,8 @@ void MainWindow::on_stepButton_clicked()
         ui->stepButton->setEnabled(false);
         qDebug("All programs are finished");
     }
+    ui->totalCyclesLabel->setText("Steps: " + QString::number(scheduler->getCycles()) + " / " + QString::number(scheduler->getTotalCycles()));
+
     this->setVisible(false);
     this->setVisible(true);
 }
@@ -108,4 +116,9 @@ void MainWindow::on_removeInstructionButton_clicked()
         delete selectedInstructionItem;
         selectedInstructionItem = 0;
     }
+}
+
+QList<ProcessItem *> MainWindow::getProcesses() const
+{
+    return ui->programsArea->findChildren<ProcessItem *>();
 }

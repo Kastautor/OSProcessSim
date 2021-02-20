@@ -6,7 +6,7 @@
 InstructionItem::InstructionItem(InstructionTypes type, QWidget * parent)
 {
     this->type = type;
-    cycle = 0;
+    cycles = 0;
     totalCycles = 4;
     selected = false;
     //paint();
@@ -20,17 +20,17 @@ void InstructionItem::paint()
     this->adjustSize();
 
     painter->drawRoundedRect(10, 10, 80, 80, 1, 1);
-    painter->drawText(30, 30, QString::number(cycle) + " / " + QString::number(totalCycles));
+    painter->drawText(30, 30, QString::number(cycles) + " / " + QString::number(totalCycles));
 }
 
 void InstructionItem::step()
 {
-    cycle++;
+    cycles++;
 }
 
 bool InstructionItem::isFinished()
 {
-    if(totalCycles == cycle){
+    if(totalCycles == cycles){
         return true;
     }else{
         return false;
@@ -50,7 +50,21 @@ void InstructionItem::paintEvent(QPaintEvent *e)
     QPushButton::paintEvent(e);
     QPainter painter(this);
 
-    painter.drawText(10, 15, QString::number(cycle) + " / " + QString::number(totalCycles));
+    painter.drawText(10, 15, QString::number(cycles) + " / " + QString::number(totalCycles));
     qWarning() << "updating" << this << "paint";
 }
 
+int InstructionItem::getTotalCycles() const
+{
+    return totalCycles;
+}
+
+int InstructionItem::getCycles() const
+{
+    return cycles;
+}
+
+void InstructionItem::reset()
+{
+    cycles = 0;
+}

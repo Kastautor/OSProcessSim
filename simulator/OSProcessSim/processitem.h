@@ -13,11 +13,15 @@ public:
     ProcessItem(QWidget * parent = 0);
     virtual ~ProcessItem();
     void addInstructionItem(InstructionItem *iI);
-    QList<InstructionItem *> getInstructions();
+    QList<InstructionItem *> getInstructions() const;
     bool isFinished();
     std::string step();
     void selectNextInstruction();
     void highlight(bool);
+    int getTotalCycles() const;
+    int getCycles() const;
+    void reset();
+
 signals:
     void sendSelection(ProcessItem*);
 protected:

@@ -15,15 +15,20 @@ public:
     bool isFinished();
     void highlight(bool);
     InstructionItem* getSelectedInstructionItem();
+    int getTotalCycles() const;
+    int getCycles() const;
+    void reset();
+
 signals:
     void sendSelection(InstructionItem*);
+
 protected:
     virtual void paintEvent(QPaintEvent *) override;
 
     QColor color;
     InstructionTypes type;
     int totalCycles;
-    int cycle;
+    int cycles;
     bool selected;
 private:
     void paint();
