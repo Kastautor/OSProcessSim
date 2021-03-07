@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <processitem.h>
+#include "configuration.h"
+#include "xmlmanager.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -72,13 +74,13 @@ void MainWindow::on_removeProcessButton_clicked()
 
 void MainWindow::on_beginButton_clicked()
 {
-    std::string algorithm = ui->algorithmSelector->currentText().toStdString();
-    // Pass the processes to the scheduler
+    QString algorithm = ui->algorithmSelector->currentText();
 
-
+    // Reset all processes
     foreach(ProcessItem *process, getProcesses())
         process->reset();
 
+    // Pass the processes to the scheduler
     scheduler = new Scheduler(algorithm, getProcesses());
 
 
@@ -91,7 +93,7 @@ void MainWindow::on_beginButton_clicked()
 
 void MainWindow::on_stepButton_clicked()
 {
-    std::string status = scheduler->step();
+    QString status = scheduler->step();
     selectProcess(scheduler->getCurrentProcess());
 
     if(status.compare("finished") == 0){
@@ -105,6 +107,9 @@ void MainWindow::on_stepButton_clicked()
     this->setVisible(true);
 }
 
+/*!
+ * \brief MainWindow::on_saveButton_clicked
+ */
 void MainWindow::on_saveButton_clicked()
 {
 
@@ -121,4 +126,14 @@ void MainWindow::on_removeInstructionButton_clicked()
 QList<ProcessItem *> MainWindow::getProcesses() const
 {
     return ui->programsArea->findChildren<ProcessItem *>();
+}
+
+void MainWindow::on_configSaveButton_clicked()
+{
+    // Temporary save in a predefined .xml file for development purpose
+    // To be replaced by a file selection dialog
+    QString algorithm = ui->algorithmSelector->currentText();
+    Configuration config(getProcesses(), algorithm);
+
+    XMLManager XMLmanager(config);
 }

@@ -9,21 +9,28 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    configuration.cpp \
     instructionitem.cpp \
     instructionoperation.cpp \
     main.cpp \
     mainwindow.cpp \
     processitem.cpp \
+    pugixml.cpp \
     resource.cpp \
-    scheduler.cpp
+    scheduler.cpp \
+    xmlmanager.cpp
 
 HEADERS += \
+    configuration.h \
     instructionitem.h \
     instructionoperation.h \
     mainwindow.h \
     processitem.h \
+    pugiconfig.hpp \
+    pugixml.hpp \
     resource.h \
-    scheduler.h
+    scheduler.h \
+    xmlmanager.h
 
 FORMS += \
     mainwindow.ui

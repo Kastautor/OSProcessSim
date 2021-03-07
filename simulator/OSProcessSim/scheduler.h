@@ -7,14 +7,14 @@
 class Scheduler
 {
 public:
-    Scheduler(std::string, QList<ProcessItem *>);
-    std::string step();
+    Scheduler(QString, QList<ProcessItem *>);
+    QString step();
     ProcessItem *getCurrentProcess();
     int getTotalCycles() const;
     int getCycles() const;
 private:
     void selectNextProcess();
-    std::string algorithm;
+    QString algorithm;
     QList<ProcessItem *> processes;
     ProcessItem *currentProcess;
 };

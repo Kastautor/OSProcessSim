@@ -30,6 +30,8 @@ private slots:
     void on_removeInstructionButton_clicked();
     QList<ProcessItem *> getProcesses() const;
 
+    void on_configSaveButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ProcessItem *selectedProcessItem = 0;

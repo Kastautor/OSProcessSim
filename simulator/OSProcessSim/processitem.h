@@ -3,7 +3,6 @@
 #include <QFrame>
 #include <QGraphicsScene>
 #include <instructionitem.h>
-#include "process.h"
 #include <QVBoxLayout>
 
 class ProcessItem: public QFrame

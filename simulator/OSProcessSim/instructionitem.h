@@ -2,7 +2,6 @@
 #define INSTRUCTIONITEM_H
 
 #include <QPushButton>
-#include <instruction.h>
 #include <QMouseEvent>
 
 enum InstructionTypes { Operation, Load, Save};

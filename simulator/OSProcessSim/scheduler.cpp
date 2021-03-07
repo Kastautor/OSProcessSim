@@ -1,6 +1,6 @@
 #include "scheduler.h"
 
-Scheduler::Scheduler(std::string algorithm, QList<ProcessItem *> processes)
+Scheduler::Scheduler(QString algorithm, QList<ProcessItem *> processes)
 {
     // Set the scheduler algorithm
     this->algorithm = algorithm;
@@ -8,7 +8,7 @@ Scheduler::Scheduler(std::string algorithm, QList<ProcessItem *> processes)
     currentProcess = 0;
 }
 
-std::string Scheduler::step()
+QString Scheduler::step()
 {
     // Current process
     if (currentProcess == 0 || currentProcess->isFinished()){
@@ -17,14 +17,15 @@ std::string Scheduler::step()
         currentProcess->step();
     }
 
+    // Update process representation
+    currentProcess->repaint();
+
     // If no processes are pending
     if(currentProcess == 0){
         return "finished";
     }else{
         return "in process";
     }
-    // Update process representation
-    currentProcess->repaint();
 }
 
 void Scheduler::selectNextProcess()
