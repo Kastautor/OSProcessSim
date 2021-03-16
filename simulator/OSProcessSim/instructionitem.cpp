@@ -7,7 +7,7 @@ InstructionItem::InstructionItem(InstructionTypes type, QWidget * parent)
 {
     this->type = type;
     cycles = 0;
-    totalCycles = 4;
+    totalCycles = 0;
     selected = false;
     //paint();
 }
@@ -67,4 +67,9 @@ int InstructionItem::getCycles() const
 void InstructionItem::reset()
 {
     cycles = 0;
+}
+
+InstructionTypes InstructionItem::getType()
+{
+    return type;
 }

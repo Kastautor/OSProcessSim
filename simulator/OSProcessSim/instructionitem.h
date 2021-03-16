@@ -16,6 +16,7 @@ public:
     InstructionItem* getSelectedInstructionItem();
     int getTotalCycles() const;
     int getCycles() const;
+    InstructionTypes getType();
     void reset();
 
 signals:

@@ -3,6 +3,9 @@
 #include <processitem.h>
 #include "configuration.h"
 #include "xmlmanager.h"
+#include "instructionoperation.h"
+#include "instructionsave.h"
+#include "instructionload.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -29,7 +32,28 @@ void MainWindow::on_sumButton_clicked()
     // Selected process
     if (selectedProcessItem != 0)
     {
-        selectedProcessItem->addInstructionItem(new InstructionItem(InstructionTypes::Operation));
+        selectedProcessItem->addInstructionItem(new InstructionOperation(this));
+    }
+}
+
+void MainWindow::on_loadButton_clicked()
+{
+    // Selected process
+    if (selectedProcessItem != 0)
+    {
+        selectedProcessItem->addInstructionItem(new InstructionLoad(this));
+    }
+}
+
+/*!
+ * \brief MainWindow::on_saveButton_clicked
+ */
+void MainWindow::on_saveButton_clicked()
+{
+    // Selected process
+    if (selectedProcessItem != 0)
+    {
+        selectedProcessItem->addInstructionItem(new InstructionSave(this));
     }
 }
 
@@ -107,14 +131,6 @@ void MainWindow::on_stepButton_clicked()
     this->setVisible(true);
 }
 
-/*!
- * \brief MainWindow::on_saveButton_clicked
- */
-void MainWindow::on_saveButton_clicked()
-{
-
-}
-
 void MainWindow::on_removeInstructionButton_clicked()
 {
     if (selectedInstructionItem != 0){
@@ -135,5 +151,17 @@ void MainWindow::on_configSaveButton_clicked()
     QString algorithm = ui->algorithmSelector->currentText();
     Configuration config(getProcesses(), algorithm);
 
-    XMLManager XMLmanager(config);
+    XMLManager xmlManager;
+    xmlManager.save(config, "/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml");
+}
+
+void MainWindow::on_configLoadButton_clicked()
+{
+    XMLManager xmlManager;
+    Configuration* config = xmlManager.load("/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml", ui->programsArea);
+
+    foreach(ProcessItem* p, config->getProcesses())
+        ui->programsArea->layout()->addWidget(p);
+
+    repaint();
 }

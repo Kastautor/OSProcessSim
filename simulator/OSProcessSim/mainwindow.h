@@ -32,6 +32,10 @@ private slots:
 
     void on_configSaveButton_clicked();
 
+    void on_loadButton_clicked();
+
+    void on_configLoadButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ProcessItem *selectedProcessItem = 0;

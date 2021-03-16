@@ -10,26 +10,34 @@ CONFIG += c++11
 
 SOURCES += \
     configuration.cpp \
+    instructionfactory.cpp \
     instructionitem.cpp \
+    instructionload.cpp \
     instructionoperation.cpp \
+    instructionsave.cpp \
     main.cpp \
     mainwindow.cpp \
     processitem.cpp \
     pugixml.cpp \
     resource.cpp \
     scheduler.cpp \
+    state.cpp \
     xmlmanager.cpp
 
 HEADERS += \
     configuration.h \
+    instructionfactory.h \
     instructionitem.h \
+    instructionload.h \
     instructionoperation.h \
+    instructionsave.h \
     mainwindow.h \
     processitem.h \
     pugiconfig.hpp \
     pugixml.hpp \
     resource.h \
     scheduler.h \
+    state.h \
     xmlmanager.h
 
 FORMS += \

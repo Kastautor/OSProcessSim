@@ -9,9 +9,12 @@ using namespace pugi;
 class XMLManager
 {
 public:
-    XMLManager(Configuration configuration);
-    xml_node createProcessNode(ProcessItem* p);
-    xml_node createInstructionNode();
+    XMLManager();
+    void createProcessNode(ProcessItem* p, xml_node node);
+    void createInstructionNode();
+    void save(Configuration configuration, QString filePath);
+    Configuration* load(QString filePath, QWidget * parent);
+
 private:
     xml_document doc;
     Configuration configuration;

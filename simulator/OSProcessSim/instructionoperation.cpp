@@ -1,7 +1,7 @@
 #include "instructionoperation.h"
 
-InstructionOperation::InstructionOperation(InstructionTypes type, QWidget * parent)
-    : InstructionItem(type, parent)
+InstructionOperation::InstructionOperation(QWidget * parent)
+    : InstructionItem(Operation, parent)
 {
-    totalCycles = 0;
+    totalCycles = 4;
 }
