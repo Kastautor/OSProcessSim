@@ -12,7 +12,8 @@ InstructionItem::InstructionItem(InstructionTypes type, QWidget * parent)
     //paint();
 }
 
-void InstructionItem::paint()
+void
+InstructionItem::paint()
 {
     setCursor(Qt::OpenHandCursor);
     QPainter *painter = new QPainter();
@@ -23,12 +24,14 @@ void InstructionItem::paint()
     painter->drawText(30, 30, QString::number(cycles) + " / " + QString::number(totalCycles));
 }
 
-void InstructionItem::step()
+void
+InstructionItem::step()
 {
     cycles++;
 }
 
-bool InstructionItem::isFinished()
+bool
+InstructionItem::isFinished()
 {
     if(totalCycles == cycles){
         return true;
@@ -37,15 +40,22 @@ bool InstructionItem::isFinished()
     }
 }
 
-void InstructionItem::highlight(bool b)
+void
+InstructionItem::highlight(bool b)
 {
+    QPalette pal = this->palette();
+
     if (b)
-        selected = true;
+        pal.setColor(QPalette::Button, QColor(Qt::blue));
     else
-        selected = false;
+        pal.setColor(QPalette::Button, QColor(Qt::color0));
+
+    this->setPalette(pal);
 }
 
-void InstructionItem::paintEvent(QPaintEvent *e)
+
+void
+InstructionItem::paintEvent(QPaintEvent *e)
 {
     QPushButton::paintEvent(e);
     QPainter painter(this);
@@ -54,22 +64,33 @@ void InstructionItem::paintEvent(QPaintEvent *e)
     qWarning() << "updating" << this << "paint";
 }
 
-int InstructionItem::getTotalCycles() const
+int
+InstructionItem::getTotalCycles() const
 {
     return totalCycles;
 }
 
-int InstructionItem::getCycles() const
+int
+InstructionItem::getCycles() const
 {
     return cycles;
 }
 
-void InstructionItem::reset()
+void
+InstructionItem::reset()
 {
     cycles = 0;
 }
 
-InstructionTypes InstructionItem::getType()
+InstructionTypes
+InstructionItem::getType()
 {
     return type;
+}
+
+
+void
+InstructionItem::mousePressEvent(QMouseEvent *event)
+{
+    emit sendSelection(this);
 }

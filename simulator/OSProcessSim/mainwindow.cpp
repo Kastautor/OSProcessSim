@@ -60,12 +60,32 @@ void MainWindow::on_saveButton_clicked()
 void MainWindow::on_addProcessButton_clicked()
 {
     // Add a new process
+    addProcess(NULL);
+    /*
     ProcessItem *pI = new ProcessItem(this);
     ui->programsArea->layout()->addWidget(pI);
 
     // Connect mousepress event
     QObject::connect(pI, SIGNAL(sendSelection(ProcessItem*)), this, SLOT(selectProcess(ProcessItem*)));
+    */
 }
+
+void MainWindow::addProcess(ProcessItem* p)
+{
+    ProcessItem *pI;
+    if (p == NULL)
+        // Create a new process
+        pI = new ProcessItem(this);
+    else
+        pI = p;
+
+    // Add the selected process
+    ui->programsArea->layout()->addWidget(pI);
+
+    // Connect mousepress event
+    QObject::connect(pI, SIGNAL(sendSelection(ProcessItem*)), this, SLOT(selectProcess(ProcessItem*)));
+}
+
 
 void MainWindow::selectProcess(ProcessItem *pI)
 {
@@ -73,7 +93,7 @@ void MainWindow::selectProcess(ProcessItem *pI)
     selectedProcessItem = pI;
 
     // Obtain the list of ProcessItems
-    QList<ProcessItem *> processItems = ui->programsArea->findChildren<ProcessItem *>();
+    QList<ProcessItem *> processItems = getProcesses();
 
     // Highlight the selected process
     for (int i = 0; i < processItems.size(); i++)
@@ -133,9 +153,9 @@ void MainWindow::on_stepButton_clicked()
 
 void MainWindow::on_removeInstructionButton_clicked()
 {
-    if (selectedInstructionItem != 0){
-        delete selectedInstructionItem;
-        selectedInstructionItem = 0;
+
+    if (selectedProcessItem != 0){
+        selectedProcessItem->removeSelectedInstruction();
     }
 }
 
@@ -160,8 +180,14 @@ void MainWindow::on_configLoadButton_clicked()
     XMLManager xmlManager;
     Configuration* config = xmlManager.load("/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml", ui->programsArea);
 
+    // Clear all process
+    QList<ProcessItem *> processItems = getProcesses();
+    //foreach(ProcessItem* p, processItems)
+        //ui->programsArea->layout()->removeWidget(p);
+
+    // Load processes from file
     foreach(ProcessItem* p, config->getProcesses())
-        ui->programsArea->layout()->addWidget(p);
+        addProcess(p);
 
     repaint();
 }

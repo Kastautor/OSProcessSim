@@ -28,7 +28,6 @@ private slots:
     void on_saveButton_clicked();
 
     void on_removeInstructionButton_clicked();
-    QList<ProcessItem *> getProcesses() const;
 
     void on_configSaveButton_clicked();
 
@@ -37,6 +36,9 @@ private slots:
     void on_configLoadButton_clicked();
 
 private:
+    void addProcess(ProcessItem* p);
+    QList<ProcessItem *> getProcesses() const;
+
     Ui::MainWindow *ui;
     ProcessItem *selectedProcessItem = 0;
     InstructionItem *selectedInstructionItem = 0;

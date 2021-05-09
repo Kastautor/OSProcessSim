@@ -8,6 +8,7 @@ enum InstructionTypes { Operation, Load, Save};
 
 class InstructionItem : public QPushButton
 {
+    Q_OBJECT
 public:
     InstructionItem(InstructionTypes type, QWidget * parent = 0);
     void step();
@@ -24,6 +25,7 @@ signals:
 
 protected:
     virtual void paintEvent(QPaintEvent *) override;
+    void mousePressEvent(QMouseEvent *event) override;
 
     QColor color;
     InstructionTypes type;

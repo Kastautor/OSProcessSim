@@ -28,6 +28,8 @@ ProcessItem::~ProcessItem()
 void ProcessItem::addInstructionItem(InstructionItem *iI)
 {
     //QList<QPushButton *> instructionItems = this->findChildren<QPushButton *>();
+    // Connect instruction to be selectable
+    connect(iI, SIGNAL(sendSelection(InstructionItem*)), this, SLOT(selectInstruction(InstructionItem*)));
     layout->insertWidget(layout->count()-1, iI);
     paintEvent(nullptr);
 }
@@ -118,3 +120,38 @@ void ProcessItem::reset()
     foreach(InstructionItem *item, instructionItems)
         item->reset();
 }
+
+void ProcessItem::removeSelectedInstruction()
+{
+    if (selectedInstruction != 0)
+    {
+        delete selectedInstruction;
+        selectedInstruction = 0;
+    }
+}
+
+
+void
+ProcessItem::selectInstruction(InstructionItem* iI)
+{
+    // Set the selected instruction
+    selectedInstruction = iI;
+
+    // Obtain the list of instructions
+    QList<InstructionItem*> instructionItems = getInstructions();
+
+    // Highlight the selected instruction
+    for (int i = 0; i < instructionItems.size(); i++)
+    {
+        InstructionItem *iICurrent = instructionItems.at(i);
+        if (iICurrent == iI){
+            iICurrent->highlight(true);
+        }else{
+            iICurrent->highlight(false);
+        }
+    }
+
+    // Select this process
+    emit sendSelection(this);
+}
+
