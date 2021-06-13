@@ -1,7 +1,7 @@
 #include "instructionload.h"
 
-InstructionLoad::InstructionLoad(QWidget * parent)
-    : InstructionItem(Load, parent)
+InstructionLoad::InstructionLoad()
+    : InstructionItem(Load)
 {
     totalCycles = 8;
 }

@@ -1,7 +1,7 @@
 #include "instructionsave.h"
 
-InstructionSave::InstructionSave(QWidget * parent)
-    : InstructionItem(Save, parent)
+InstructionSave::InstructionSave()
+    : InstructionItem(Save)
 {
     totalCycles = 10;
 }

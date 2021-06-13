@@ -5,7 +5,7 @@
 class InstructionSave : public InstructionItem
 {
 public:
-    InstructionSave(QWidget * parent = 0);
+    InstructionSave();
 };
 
 #endif // INSTRUCTIONSAVE_H

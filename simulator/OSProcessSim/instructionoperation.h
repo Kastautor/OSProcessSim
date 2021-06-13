@@ -5,7 +5,7 @@
 class InstructionOperation : public InstructionItem
 {
 public:
-    InstructionOperation(QWidget * parent = 0);
+    InstructionOperation();
 };
 
 #endif // INSTRUCTIONOPERATION_H

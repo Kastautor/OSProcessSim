@@ -5,7 +5,7 @@
 class InstructionLoad : public InstructionItem
 {
 public:
-    InstructionLoad(QWidget * parent = 0);
+    InstructionLoad();
 };
 
 #endif // INSTRUCTIONLOAD_H

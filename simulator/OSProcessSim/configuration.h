@@ -1,6 +1,7 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 #include "processitem.h"
+#include "resourcesdatabase.h"
 
 /*!
  * \brief Internal representation of the simulation inputs
@@ -15,7 +16,6 @@ public:
 private:
     QList<ProcessItem*> processes;
     QString algorithm;
-
 };
 
 #endif // CONFIGURATION_H

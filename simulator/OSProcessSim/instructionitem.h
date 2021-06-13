@@ -3,14 +3,16 @@
 
 #include <QPushButton>
 #include <QMouseEvent>
+#include "resource.h"
 
 enum InstructionTypes { Operation, Load, Save};
 
 class InstructionItem : public QPushButton
 {
     Q_OBJECT
+
 public:
-    InstructionItem(InstructionTypes type, QWidget * parent = 0);
+    InstructionItem(InstructionTypes type);
     void step();
     bool isFinished();
     void highlight(bool);
@@ -24,8 +26,9 @@ signals:
     void sendSelection(InstructionItem*);
 
 protected:
-    virtual void paintEvent(QPaintEvent *) override;
+    virtual void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
+    virtual void mouseDoubleClickEvent(QMouseEvent *event) override;
 
     QColor color;
     InstructionTypes type;
@@ -34,6 +37,8 @@ protected:
     bool selected;
 private:
     void paint();
+    QList<Resource*> resources;
+
 };
 
 #endif // INSTRUCTIONITEM_H

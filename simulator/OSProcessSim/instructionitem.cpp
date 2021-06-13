@@ -3,13 +3,12 @@
 #include <QPainter>
 #include <QDebug>
 
-InstructionItem::InstructionItem(InstructionTypes type, QWidget * parent)
+InstructionItem::InstructionItem(InstructionTypes type)
 {
     this->type = type;
     cycles = 0;
     totalCycles = 0;
     selected = false;
-    //paint();
 }
 
 void
@@ -55,9 +54,9 @@ InstructionItem::highlight(bool b)
 
 
 void
-InstructionItem::paintEvent(QPaintEvent *e)
+InstructionItem::paintEvent(QPaintEvent *event)
 {
-    QPushButton::paintEvent(e);
+    QPushButton::paintEvent(event);
     QPainter painter(this);
 
     painter.drawText(10, 15, QString::number(cycles) + " / " + QString::number(totalCycles));
@@ -93,4 +92,10 @@ void
 InstructionItem::mousePressEvent(QMouseEvent *event)
 {
     emit sendSelection(this);
+}
+
+void
+InstructionItem::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    int a;
 }

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <processitem.h>
 #include "scheduler.h"
+#include "resourcesdatabase.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,13 +36,17 @@ private slots:
 
     void on_configLoadButton_clicked();
 
+    void on_resourcesButton_clicked();
+
 private:
     void addProcess(ProcessItem* p);
+    void clear();
     QList<ProcessItem *> getProcesses() const;
 
     Ui::MainWindow *ui;
-    ProcessItem *selectedProcessItem = 0;
-    InstructionItem *selectedInstructionItem = 0;
+    ProcessItem *selectedProcessItem = NULL;
+    InstructionItem *selectedInstructionItem = NULL;
     Scheduler *scheduler;
+    ResourcesDataBase* resourcesDB;
 };
 #endif // MAINWINDOW_H

@@ -20,6 +20,8 @@ SOURCES += \
     processitem.cpp \
     pugixml.cpp \
     resource.cpp \
+    resourcesdatabase.cpp \
+    resourcesdialog.cpp \
     scheduler.cpp \
     state.cpp \
     xmlmanager.cpp
@@ -36,12 +38,15 @@ HEADERS += \
     pugiconfig.hpp \
     pugixml.hpp \
     resource.h \
+    resourcesdatabase.h \
+    resourcesdialog.h \
     scheduler.h \
     state.h \
     xmlmanager.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    resourcesdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

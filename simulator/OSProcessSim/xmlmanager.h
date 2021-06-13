@@ -13,7 +13,7 @@ public:
     void createProcessNode(ProcessItem* p, xml_node node);
     void createInstructionNode();
     void save(Configuration configuration, QString filePath);
-    Configuration* load(QString filePath, QWidget * parent);
+    Configuration* load(QString filePath);
 
 private:
     xml_document doc;

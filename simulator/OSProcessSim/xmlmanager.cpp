@@ -12,8 +12,10 @@ XMLManager::XMLManager()
 
 void XMLManager::createProcessNode(ProcessItem* p, xml_node node)
 {
+    int index = 0;
     foreach(InstructionItem* i, p->getInstructions())
     {
+        index++;
         std::string str = "Instruction";
         xml_node instruction = node.append_child(str.c_str());
         instruction.append_attribute("type") = i->getType();
@@ -48,7 +50,7 @@ void XMLManager::save(Configuration configuration, QString filePath)
     doc.save_file(filePath.toStdString().c_str());
 }
 
-Configuration* XMLManager::load(QString filePath, QWidget* parent)
+Configuration* XMLManager::load(QString filePath)
 {
     // Processes list
     QList<ProcessItem *> processes;
@@ -63,8 +65,7 @@ Configuration* XMLManager::load(QString filePath, QWidget* parent)
 
     for (pugi::xml_node nodeProcess: nodeConfiguration.children())
     {
-        ProcessItem* process = new ProcessItem(parent);
-
+        ProcessItem* process = new ProcessItem(NULL);
 
         for (pugi::xml_node nodeInstruction: nodeProcess.children())
         {
@@ -77,6 +78,8 @@ Configuration* XMLManager::load(QString filePath, QWidget* parent)
         // Add process to configuration
         processes.append(process);
     }
+
+
 
     Configuration* configuration = new Configuration(processes, "");
     return configuration;

@@ -6,6 +6,7 @@
 #include "instructionoperation.h"
 #include "instructionsave.h"
 #include "instructionload.h"
+#include "resourcesdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent)
     {
         ui->algorithmSelector->addItem(QString::fromStdString(Algorithms[i]));
     }
+
+    // Set programsArea layout
+    ui->programsArea->setLayout(new QHBoxLayout(this));
 }
 
 MainWindow::~MainWindow()
@@ -32,7 +36,7 @@ void MainWindow::on_sumButton_clicked()
     // Selected process
     if (selectedProcessItem != 0)
     {
-        selectedProcessItem->addInstructionItem(new InstructionOperation(this));
+        selectedProcessItem->addInstructionItem(new InstructionOperation());
     }
 }
 
@@ -41,7 +45,7 @@ void MainWindow::on_loadButton_clicked()
     // Selected process
     if (selectedProcessItem != 0)
     {
-        selectedProcessItem->addInstructionItem(new InstructionLoad(this));
+        selectedProcessItem->addInstructionItem(new InstructionLoad());
     }
 }
 
@@ -53,7 +57,7 @@ void MainWindow::on_saveButton_clicked()
     // Selected process
     if (selectedProcessItem != 0)
     {
-        selectedProcessItem->addInstructionItem(new InstructionSave(this));
+        selectedProcessItem->addInstructionItem(new InstructionSave());
     }
 }
 
@@ -61,13 +65,6 @@ void MainWindow::on_addProcessButton_clicked()
 {
     // Add a new process
     addProcess(NULL);
-    /*
-    ProcessItem *pI = new ProcessItem(this);
-    ui->programsArea->layout()->addWidget(pI);
-
-    // Connect mousepress event
-    QObject::connect(pI, SIGNAL(sendSelection(ProcessItem*)), this, SLOT(selectProcess(ProcessItem*)));
-    */
 }
 
 void MainWindow::addProcess(ProcessItem* p)
@@ -177,13 +174,10 @@ void MainWindow::on_configSaveButton_clicked()
 
 void MainWindow::on_configLoadButton_clicked()
 {
+    // Clear current config
+    clear();
     XMLManager xmlManager;
-    Configuration* config = xmlManager.load("/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml", ui->programsArea);
-
-    // Clear all process
-    QList<ProcessItem *> processItems = getProcesses();
-    //foreach(ProcessItem* p, processItems)
-        //ui->programsArea->layout()->removeWidget(p);
+    Configuration* config = xmlManager.load("/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml");
 
     // Load processes from file
     foreach(ProcessItem* p, config->getProcesses())
@@ -191,3 +185,26 @@ void MainWindow::on_configLoadButton_clicked()
 
     repaint();
 }
+
+void MainWindow::clear()
+{
+    // Clear all process
+    QList<ProcessItem *> processItems = getProcesses();
+    foreach(ProcessItem* p, processItems)
+        delete p;
+
+    selectedInstructionItem = NULL;
+    selectedProcessItem = NULL;
+}
+
+
+
+void MainWindow::on_resourcesButton_clicked()
+{
+    if (resourcesDB == NULL)
+        resourcesDB = new ResourcesDataBase();
+    // Launch the dialog to edit the resources
+    ResourcesDialog* dia = new ResourcesDialog(resourcesDB);
+    dia->exec();
+}
+
