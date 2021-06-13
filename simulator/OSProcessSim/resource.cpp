@@ -11,9 +11,3 @@ Resource::getName()
     return name;
 }
 
-bool
-Resource::addConstraint(int state, InstructionItem* i)
-{
-
-}
-

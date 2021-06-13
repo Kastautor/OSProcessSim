@@ -2,6 +2,7 @@
 #include <QCursor>
 #include <QPainter>
 #include <QDebug>
+#include "resourcesdialog.h"
 
 InstructionItem::InstructionItem(InstructionTypes type)
 {
@@ -97,5 +98,12 @@ InstructionItem::mousePressEvent(QMouseEvent *event)
 void
 InstructionItem::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    int a;
+    ResourcesDialog d;
+    d.exec();
+}
+
+Resource*
+InstructionItem::getResource()
+{
+    return resource;
 }

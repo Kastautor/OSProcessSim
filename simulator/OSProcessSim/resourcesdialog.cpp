@@ -2,12 +2,10 @@
 #include "ui_resourcesdialog.h"
 #include <QInputDialog>
 
-ResourcesDialog::ResourcesDialog(ResourcesDataBase* db, QWidget *parent) :
+ResourcesDialog::ResourcesDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ResourcesDialog)
 {
-    this->db = db;
-
     ui->setupUi(this);
 }
 
@@ -49,7 +47,7 @@ void ResourcesDialog::on_deleteButton_clicked()
     {
         foreach(QListWidgetItem* item, selectedItems)
         {
-            db->remResource(item->text());
+            ResourcesDataBase::remResource(item->text());
         }
     }
     updateDatabase();

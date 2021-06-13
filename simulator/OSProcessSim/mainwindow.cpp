@@ -169,7 +169,7 @@ void MainWindow::on_configSaveButton_clicked()
     Configuration config(getProcesses(), algorithm);
 
     XMLManager xmlManager;
-    xmlManager.save(config, "/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml");
+    xmlManager.save(config, "C:/Users/david/Documents/Proyecto/OSProcessSim/simulator/OSProcessSim/config2.xml");
 }
 
 void MainWindow::on_configLoadButton_clicked()
@@ -177,7 +177,7 @@ void MainWindow::on_configLoadButton_clicked()
     // Clear current config
     clear();
     XMLManager xmlManager;
-    Configuration* config = xmlManager.load("/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml");
+    Configuration* config = xmlManager.load("C:/Users/david/Documents/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml");
 
     // Load processes from file
     foreach(ProcessItem* p, config->getProcesses())
@@ -204,7 +204,7 @@ void MainWindow::on_resourcesButton_clicked()
     if (resourcesDB == NULL)
         resourcesDB = new ResourcesDataBase();
     // Launch the dialog to edit the resources
-    ResourcesDialog* dia = new ResourcesDialog(resourcesDB);
+    ResourcesDialog* dia = new ResourcesDialog(this);
     dia->exec();
 }
 

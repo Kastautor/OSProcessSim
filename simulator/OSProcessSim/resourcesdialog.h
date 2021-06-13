@@ -13,7 +13,7 @@ class ResourcesDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ResourcesDialog(ResourcesDataBase* db, QWidget *parent = nullptr);
+    explicit ResourcesDialog(QWidget *parent = nullptr);
     ~ResourcesDialog();
 
 private slots:

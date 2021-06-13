@@ -2,15 +2,12 @@
 #define RESOURCE_H
 #include <QList>
 
-#include "instructionitem.h"
-
 class Resource
 {
 public:
     Resource(QString name);
-    bool addConstraint(int state, InstructionItem* i);
-    void lock(InstructionItem* i);
-    void release(InstructionItem* i);
+    void lock();
+    void release();
     QString getName();
 
 private:

@@ -8,14 +8,12 @@ class ResourcesDataBase
 {
 public:
     ResourcesDataBase();
-    QMap<QString, Resource*> getResources();
-    void addResource(Resource* r);
-    void remResource(Resource* r);
-    void remResource(QString name);
-    bool findResource(QString name, Resource* r);
+    static QMap<QString, Resource*> getResources();
+    static void addResource(Resource* r);
+    static void remResource(QString name);
 
 private:
-    QMap<QString, Resource*> resources;
+    static QMap<QString, Resource*> resources;
 };
 
 #endif // RESOURCESDATABASE_H
