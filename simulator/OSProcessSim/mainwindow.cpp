@@ -7,6 +7,7 @@
 #include "instructionsave.h"
 #include "instructionload.h"
 #include "resourcesdialog.h"
+#include <qmessagebox.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -140,6 +141,9 @@ void MainWindow::on_stepButton_clicked()
     if(status.compare("finished") == 0){
         ui->beginButton->setEnabled(true);
         ui->stepButton->setEnabled(false);
+        QMessageBox msg(this);
+        msg.setText("All processed have finished");
+        msg.exec();
         qDebug("All programs are finished");
     }
     ui->totalCyclesLabel->setText("Steps: " + QString::number(scheduler->getCycles()) + " / " + QString::number(scheduler->getTotalCycles()));
@@ -169,7 +173,7 @@ void MainWindow::on_configSaveButton_clicked()
     Configuration config(getProcesses(), algorithm);
 
     XMLManager xmlManager;
-    xmlManager.save(config, "C:/Users/david/Documents/Proyecto/OSProcessSim/simulator/OSProcessSim/config2.xml");
+    xmlManager.save(config, "/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config2.xml");
 }
 
 void MainWindow::on_configLoadButton_clicked()
@@ -177,7 +181,7 @@ void MainWindow::on_configLoadButton_clicked()
     // Clear current config
     clear();
     XMLManager xmlManager;
-    Configuration* config = xmlManager.load("C:/Users/david/Documents/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml");
+    Configuration* config = xmlManager.load("/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml");
 
     // Load processes from file
     foreach(ProcessItem* p, config->getProcesses())
@@ -204,7 +208,7 @@ void MainWindow::on_resourcesButton_clicked()
     if (resourcesDB == NULL)
         resourcesDB = new ResourcesDataBase();
     // Launch the dialog to edit the resources
-    ResourcesDialog* dia = new ResourcesDialog(this);
+    ResourcesDialog* dia = new ResourcesDialog(false);
     dia->exec();
 }
 

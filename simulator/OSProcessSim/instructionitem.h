@@ -5,7 +5,8 @@
 #include <QMouseEvent>
 #include "resource.h"
 
-enum InstructionTypes { Operation, Load, Save};
+enum InstructionTypes { Operation, Load, Save, Lock};
+const QString InstructionTypeStrings[4] = {"Operation", "Load", "Save", "Lock"};
 
 class InstructionItem : public QPushButton
 {
@@ -36,9 +37,10 @@ protected:
     int totalCycles;
     int cycles;
     bool selected;
+    Resource* resource;
+
 private:
     void paint();
-    Resource* resource;
 
 };
 

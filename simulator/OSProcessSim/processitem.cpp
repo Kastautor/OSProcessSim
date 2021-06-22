@@ -82,6 +82,7 @@ std::string ProcessItem::step()
     }else{
         return "in process";
     }
+    repaint();
 }
 
 void ProcessItem::selectNextInstruction()

@@ -16,6 +16,7 @@ public:
 private:
     QList<ProcessItem*> processes;
     QString algorithm;
+    QList<Resource*> resources;
 };
 
 #endif // CONFIGURATION_H

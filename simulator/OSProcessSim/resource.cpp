@@ -11,3 +11,14 @@ Resource::getName()
     return name;
 }
 
+void
+Resource::lock()
+{
+    locked = true;
+}
+
+void
+Resource::release()
+{
+    locked = true;
+}

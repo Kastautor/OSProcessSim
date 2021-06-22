@@ -17,9 +17,6 @@ QString Scheduler::step()
         currentProcess->step();
     }
 
-    // Update process representation
-    currentProcess->repaint();
-
     // If no processes are pending
     if(currentProcess == 0){
         return "finished";

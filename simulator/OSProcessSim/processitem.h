@@ -35,6 +35,7 @@ private:
     InstructionItem* currentInstruction;
     InstructionItem* selectedInstruction;
     QVBoxLayout* layout;
+    Resource* resource;
 };
 
 #endif // PROCESSITEM_H

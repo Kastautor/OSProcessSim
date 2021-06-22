@@ -13,18 +13,6 @@ InstructionItem::InstructionItem(InstructionTypes type)
 }
 
 void
-InstructionItem::paint()
-{
-    setCursor(Qt::OpenHandCursor);
-    QPainter *painter = new QPainter();
-
-    this->adjustSize();
-
-    painter->drawRoundedRect(10, 10, 80, 80, 1, 1);
-    painter->drawText(30, 30, QString::number(cycles) + " / " + QString::number(totalCycles));
-}
-
-void
 InstructionItem::step()
 {
     cycles++;
@@ -60,7 +48,9 @@ InstructionItem::paintEvent(QPaintEvent *event)
     QPushButton::paintEvent(event);
     QPainter painter(this);
 
-    painter.drawText(10, 15, QString::number(cycles) + " / " + QString::number(totalCycles));
+    painter.drawText(10, 15, InstructionTypeStrings[getType()]);
+    painter.drawText(10, 30, QString::number(cycles) + " / " + QString::number(totalCycles));
+    this->setFixedHeight(40);
     qWarning() << "updating" << this << "paint";
 }
 
@@ -98,8 +88,9 @@ InstructionItem::mousePressEvent(QMouseEvent *event)
 void
 InstructionItem::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    ResourcesDialog d;
+    ResourcesDialog d(true);
     d.exec();
+    resource = d.getSelectedResource();
 }
 
 Resource*

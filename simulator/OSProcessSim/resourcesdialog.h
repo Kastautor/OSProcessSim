@@ -13,18 +13,19 @@ class ResourcesDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ResourcesDialog(QWidget *parent = nullptr);
+    explicit ResourcesDialog(bool linker, QWidget *parent = nullptr);
     ~ResourcesDialog();
+    Resource* getSelectedResource();
 
 private slots:
     void on_addButton_clicked();
-
     void on_deleteButton_clicked();
+    void on_okButton_clicked();
 
 private:
     Ui::ResourcesDialog *ui;
-    ResourcesDataBase* db;
     void updateDatabase();
+    Resource* selectedResource = NULL;
 };
 
 #endif // RESOURCESDIALOG_H

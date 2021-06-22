@@ -2,6 +2,7 @@
 #include "instructionload.h"
 #include "instructionsave.h"
 #include "instructionoperation.h"
+#include "instructionlock.h"
 
 //enum InstructionTypes { Operation, Load, Save};
 
@@ -18,4 +19,7 @@ InstructionItem* InstructionFactory::createInstruction(InstructionTypes type)
         return new InstructionLoad();
     if (type == Save)
         return new InstructionSave();
+    if (type == Lock)
+        return new InstructionLock();
+    return NULL;
 }

@@ -2,6 +2,8 @@
 #define RESOURCE_H
 #include <QList>
 
+
+
 class Resource
 {
 public:
@@ -12,7 +14,7 @@ public:
 
 private:
     QString name;
-
+    bool locked;
 };
 
 #endif // RESOURCE_H

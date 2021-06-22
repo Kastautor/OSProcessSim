@@ -13,6 +13,7 @@ SOURCES += \
     instructionfactory.cpp \
     instructionitem.cpp \
     instructionload.cpp \
+    instructionlock.cpp \
     instructionoperation.cpp \
     instructionsave.cpp \
     main.cpp \
@@ -23,7 +24,6 @@ SOURCES += \
     resourcesdatabase.cpp \
     resourcesdialog.cpp \
     scheduler.cpp \
-    state.cpp \
     xmlmanager.cpp
 
 HEADERS += \
@@ -31,6 +31,7 @@ HEADERS += \
     instructionfactory.h \
     instructionitem.h \
     instructionload.h \
+    instructionlock.h \
     instructionoperation.h \
     instructionsave.h \
     mainwindow.h \
@@ -41,7 +42,6 @@ HEADERS += \
     resourcesdatabase.h \
     resourcesdialog.h \
     scheduler.h \
-    state.h \
     xmlmanager.h
 
 FORMS += \
