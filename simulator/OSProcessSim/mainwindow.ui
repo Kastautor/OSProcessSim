@@ -137,6 +137,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="addLockInstructionButton">
+           <property name="text">
+            <string>Lock</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>

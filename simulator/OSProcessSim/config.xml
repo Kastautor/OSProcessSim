@@ -1,18 +1,17 @@
 <?xml version="1.0"?>
 <program algorithm="FCFS">
 	<Process>
-		<Instruction type="1" index="1" />
-		<Instruction type="1" index="2" />
-		<Instruction type="1" index="3" />
+		<Instruction type="1" />
+		<Instruction type="3" />
 	</Process>
 	<Process>
-		<Instruction type="2" index="1" />
-		<Instruction type="1" index="2" />
-		<Instruction type="1" index="3" />
-		<Instruction type="1" index="4" />
-		<Instruction type="0" index="5" />
+		<Instruction type="2" />
+		<Instruction type="1" />
+		<Instruction type="1" />
+		<Instruction type="1" />
+		<Instruction type="0" />
 	</Process>
 	<Process>
-		<Instruction type="0" index="1" />
+		<Instruction type="0" />
 	</Process>
 </program>

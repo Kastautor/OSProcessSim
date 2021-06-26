@@ -6,6 +6,7 @@
 #include "instructionoperation.h"
 #include "instructionsave.h"
 #include "instructionload.h"
+#include "instructionlock.h"
 #include "resourcesdialog.h"
 #include <qmessagebox.h>
 
@@ -59,6 +60,15 @@ void MainWindow::on_saveButton_clicked()
     if (selectedProcessItem != 0)
     {
         selectedProcessItem->addInstructionItem(new InstructionSave());
+    }
+}
+
+void MainWindow::on_addLockInstructionButton_clicked()
+{
+    // Selected process
+    if (selectedProcessItem != 0)
+    {
+        selectedProcessItem->addInstructionItem(new InstructionLock());
     }
 }
 
@@ -211,4 +221,7 @@ void MainWindow::on_resourcesButton_clicked()
     ResourcesDialog* dia = new ResourcesDialog(false);
     dia->exec();
 }
+
+
+
 

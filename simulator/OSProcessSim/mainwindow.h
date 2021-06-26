@@ -38,6 +38,8 @@ private slots:
 
     void on_resourcesButton_clicked();
 
+    void on_addLockInstructionButton_clicked();
+
 private:
     void addProcess(ProcessItem* p);
     void clear();
