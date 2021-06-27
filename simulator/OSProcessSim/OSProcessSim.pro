@@ -21,6 +21,7 @@ SOURCES += \
     processitem.cpp \
     pugixml.cpp \
     resource.cpp \
+    resourcescontroller.cpp \
     resourcesdatabase.cpp \
     resourcesdialog.cpp \
     scheduler.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     pugiconfig.hpp \
     pugixml.hpp \
     resource.h \
+    resourcescontroller.h \
     resourcesdatabase.h \
     resourcesdialog.h \
     scheduler.h \

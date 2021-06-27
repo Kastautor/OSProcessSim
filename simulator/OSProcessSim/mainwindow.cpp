@@ -9,6 +9,7 @@
 #include "instructionlock.h"
 #include "resourcesdialog.h"
 #include <qmessagebox.h>
+#include "resourcescontroller.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
     {
         ui->algorithmSelector->addItem(QString::fromStdString(Algorithms[i]));
     }
+
+    // Resources database
+    ResourcesController resourcesController(ui->resourcesListView, resourcesDB);
 
     // Set programsArea layout
     ui->programsArea->setLayout(new QHBoxLayout(this));

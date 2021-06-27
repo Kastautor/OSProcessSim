@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>782</width>
-    <height>600</height>
+    <height>609</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,8 +25,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>604</width>
-         <height>536</height>
+         <width>329</width>
+         <height>545</height>
         </rect>
        </property>
       </widget>
@@ -230,6 +230,50 @@
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="leftDockWidget">
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="leftDockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QListView" name="resourcesListView"/>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="0">
+        <widget class="QPushButton" name="linkResourceButton">
+         <property name="text">
+          <string>Link</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="unlinkResourceButtom">
+         <property name="text">
+          <string>Unlink</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="addResourceButton">
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="removeResourceButton">
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>
