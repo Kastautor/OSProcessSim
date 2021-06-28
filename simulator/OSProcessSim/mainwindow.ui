@@ -78,13 +78,6 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="resourcesButton">
-           <property name="text">
-            <string>Resources</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
       </item>

@@ -5,20 +5,16 @@ Configuration::Configuration()
 
 }
 
-/*!
- * \brief Configuration::Configuration
- * \param processes
- * \param algorithm
- */
-Configuration::Configuration(QList<ProcessItem *> processes, QString algorithm)
+Configuration::Configuration(QMap<QString, QMap<QString, QString>> processes, QString algorithm)
 {
     this->processes = processes;
     this->algorithm = algorithm;
 }
 
-QList<ProcessItem*> Configuration::getProcesses()
+QMap<QString, QMap<QString, QString>>
+Configuration::getProcesses()
 {
-    return this->processes;
+    return processes;
 }
 
 QString Configuration::getAlgorithm()

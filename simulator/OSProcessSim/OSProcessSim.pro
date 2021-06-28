@@ -23,7 +23,6 @@ SOURCES += \
     resource.cpp \
     resourcescontroller.cpp \
     resourcesdatabase.cpp \
-    resourcesdialog.cpp \
     scheduler.cpp \
     xmlmanager.cpp
 
@@ -42,13 +41,11 @@ HEADERS += \
     resource.h \
     resourcescontroller.h \
     resourcesdatabase.h \
-    resourcesdialog.h \
     scheduler.h \
     xmlmanager.h
 
 FORMS += \
-    mainwindow.ui \
-    resourcesdialog.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -10,7 +10,7 @@ XMLManager::XMLManager()
 }
 
 
-void XMLManager::createProcessNode(ProcessItem* p, xml_node node)
+void XMLManager::createProcessNode(QMap<QString, QString> p, xml_node node)
 {
     int index = 0;
     foreach(InstructionItem* i, p->getInstructions())
@@ -34,9 +34,10 @@ void XMLManager::save(Configuration configuration, QString filePath)
     xml_node configNode = doc.append_child("program");
     configNode.append_attribute("algorithm") = configuration.getAlgorithm().toStdString().c_str();
 
-    //QList<ProcessItem*>
-    foreach(ProcessItem* p, configuration.getProcesses())
+    QMap<QString, QMap<QString, QString>> processes = configuration.getProcesses();
+    foreach(QString pName, processes.keys())
     {
+        QMap<QString, QString> p = processes.value(pName);
         std::string str = "Process";
         configNode = configNode.append_child(str.c_str());
         createProcessNode(p, configNode);

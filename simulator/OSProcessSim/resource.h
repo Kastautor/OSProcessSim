@@ -2,8 +2,6 @@
 #define RESOURCE_H
 #include <QList>
 
-
-
 class Resource
 {
 public:

@@ -2,10 +2,12 @@
 #include <QCursor>
 #include <QPainter>
 #include <QDebug>
-#include "resourcesdialog.h"
+#include <QUuid>
 
 InstructionItem::InstructionItem(InstructionTypes type)
 {
+    QUuid id = QUuid::createUuid();
+    name = id.toString();
     this->type = type;
     cycles = 0;
     totalCycles = 0;
@@ -85,16 +87,14 @@ InstructionItem::mousePressEvent(QMouseEvent *event)
     emit sendSelection(this);
 }
 
-void
-InstructionItem::mouseDoubleClickEvent(QMouseEvent *event)
+QList<Resource*>
+InstructionItem::getResources()
 {
-    ResourcesDialog d(true);
-    d.exec();
-    resource = d.getSelectedResource();
+    return resources;
 }
 
-Resource*
-InstructionItem::getResource()
+QString
+InstructionItem::getName()
 {
-    return resource;
+    return name;
 }

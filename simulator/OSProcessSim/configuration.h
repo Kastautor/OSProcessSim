@@ -11,12 +11,12 @@ class Configuration
 public:
     Configuration();
     Configuration(QList<ProcessItem *> processes, QString algorithm);
-    QList<ProcessItem*> getProcesses();
+    Configuration(QMap<QString, QMap<QString, QString>> map, QString algorithm);
+    QMap<QString, QMap<QString, QString>> getProcesses();
     QString getAlgorithm();
 private:
-    QList<ProcessItem*> processes;
+    QMap<QString, QMap<QString, QString>> processes;
     QString algorithm;
-    QList<Resource*> resources;
 };
 
 #endif // CONFIGURATION_H

@@ -1,10 +1,21 @@
 #include "processitem.h"
 #include <QGraphicsView>
 #include "instructionitem.h"
+#include <QUuid>
 
-ProcessItem::ProcessItem(QWidget * parent)
+ProcessItem::ProcessItem(QString name, QWidget * parent)
     :QFrame(parent)
 {
+    if (name.isEmpty())
+    {
+        QUuid id = QUuid::createUuid();
+        name = id.toString();
+    }
+    else
+    {
+        this->name = name;
+    }
+
     currentInstruction = 0;
 
     // Set the panel dimensions
@@ -22,7 +33,12 @@ ProcessItem::ProcessItem(QWidget * parent)
 
 ProcessItem::~ProcessItem()
 {
+}
 
+QString
+ProcessItem::getName()
+{
+    return name;
 }
 
 void ProcessItem::addInstructionItem(InstructionItem *iI)

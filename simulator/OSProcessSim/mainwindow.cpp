@@ -7,7 +7,6 @@
 #include "instructionsave.h"
 #include "instructionload.h"
 #include "instructionlock.h"
-#include "resourcesdialog.h"
 #include <qmessagebox.h>
 #include "resourcescontroller.h"
 
@@ -26,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     // Resources database
-    ResourcesController resourcesController(ui->resourcesListView, resourcesDB);
+    resourcesController = new ResourcesController(ui->resourcesListView);
 
     // Set programsArea layout
     ui->programsArea->setLayout(new QHBoxLayout(this));
@@ -87,7 +86,7 @@ void MainWindow::addProcess(ProcessItem* p)
     ProcessItem *pI;
     if (p == NULL)
         // Create a new process
-        pI = new ProcessItem(this);
+        pI = new ProcessItem();
     else
         pI = p;
 
@@ -198,13 +197,22 @@ void MainWindow::on_configLoadButton_clicked()
     Configuration* config = xmlManager.load("/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml");
 
     // Load processes from file
-    foreach(ProcessItem* p, config->getProcesses())
-        addProcess(p);
+    QMap<QString, QMap<QString, QString>> processes = config->getProcesses();
 
+    foreach(QString pName, processes.keys())
+    {
+        ProcessItem* pI = new ProcessItem(pName);
+        QMap<QString, QString> p = processes.value(pName);
+        foreach(QString iName, p.keys())
+        {
+
+        }
+    }
     repaint();
 }
 
-void MainWindow::clear()
+void
+MainWindow::clear()
 {
     // Clear all process
     QList<ProcessItem *> processItems = getProcesses();
@@ -215,17 +223,35 @@ void MainWindow::clear()
     selectedProcessItem = NULL;
 }
 
-
-
-void MainWindow::on_resourcesButton_clicked()
+void
+MainWindow::on_addResourceButton_clicked()
 {
-    if (resourcesDB == NULL)
-        resourcesDB = new ResourcesDataBase();
-    // Launch the dialog to edit the resources
-    ResourcesDialog* dia = new ResourcesDialog(false);
-    dia->exec();
+    resourcesController->add();
 }
 
 
+void MainWindow::on_removeResourceButton_clicked()
+{
+    resourcesController->remove(getConfiguration());
+}
 
+Configuration
+MainWindow::getConfiguration()
+{
+    QMap<QString, QMap<QString, QString>> map;
+    // Each process
+    foreach(ProcessItem* p, getProcesses())
+    {
+        // Each instruction
+        QMap<QString, QString> processMap;
+        foreach(InstructionItem* i, p->getInstructions())
+        {
+            // Each resource
+            foreach(Resource* r, i->getResources())
+                processMap.insert(i->getName(), r->getName());
+        }
+        map.insert(p->getName(), processMap);
+    }
 
+    return Configuration(map, ui->algorithmSelector->currentText());
+}

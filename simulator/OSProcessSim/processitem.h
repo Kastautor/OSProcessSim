@@ -9,7 +9,7 @@ class ProcessItem: public QFrame
 {
     Q_OBJECT
 public:
-    ProcessItem(QWidget * parent = 0);
+    ProcessItem(QString name = "", QWidget * parent = 0);
     virtual ~ProcessItem();
     void addInstructionItem(InstructionItem *iI);
     QList<InstructionItem *> getInstructions() const;
@@ -21,6 +21,7 @@ public:
     int getTotalCycles() const;
     int getCycles() const;
     void reset();
+    QString getName();
 
 signals:
     void sendSelection(ProcessItem*);
@@ -36,6 +37,7 @@ private:
     InstructionItem* selectedInstruction;
     QVBoxLayout* layout;
     Resource* resource;
+    QString name;
 };
 
 #endif // PROCESSITEM_H

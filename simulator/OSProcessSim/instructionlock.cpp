@@ -11,12 +11,14 @@ void
 InstructionLock::step()
 {
     InstructionItem::step();
-    if (resource == NULL)
+    if (resources.isEmpty())
     {
         QMessageBox msg;
         msg.setText("No resource linked to lock instruction");
         msg.exec();
         return;
     }
-    resource->lock();
+
+    foreach(Resource* r, resources)
+        r->lock();
 }

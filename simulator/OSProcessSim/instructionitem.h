@@ -22,7 +22,8 @@ public:
     int getCycles() const;
     InstructionTypes getType();
     void reset();
-    Resource* getResource();
+    QList<Resource*> getResources();
+    QString getName();
 
 signals:
     void sendSelection(InstructionItem*);
@@ -30,17 +31,17 @@ signals:
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
-    virtual void mouseDoubleClickEvent(QMouseEvent *event) override;
 
     QColor color;
     InstructionTypes type;
     int totalCycles;
     int cycles;
     bool selected;
-    Resource* resource;
+    QList<Resource*> resources;
 
 private:
     void paint();
+    QString name;
 
 };
 
