@@ -32,15 +32,23 @@ ResourcesController::updateView()
 }
 
 void
-ResourcesController::add()
+ResourcesController::add(QString name)
 {
-    // Launchs a dialog to insert name
-    QInputDialog d;
-    int accept = d.exec();
-    if (accept != 0 && !d.textValue().isEmpty())
+    if (name.isEmpty())
     {
-        // Adds to DB
-        Resource* r = new Resource(d.textValue());
+        // Launchs a dialog to insert name
+        QInputDialog d;
+        int accept = d.exec();
+        if (accept != 0 && !d.textValue().isEmpty())
+        {
+            // Adds to DB
+            Resource* r = new Resource(d.textValue());
+            resourcesDB->addResource(r);
+        }
+    }
+    else
+    {
+        Resource* r = new Resource(name);
         resourcesDB->addResource(r);
     }
     updateView();

@@ -191,14 +191,14 @@ void MainWindow::on_configSaveButton_clicked()
 
 void MainWindow::on_configLoadButton_clicked()
 {
-    // Clear current config
+    // Clear processes and resources
     clear();
     XMLManager xmlManager;
-    Configuration* config = xmlManager.load("/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml");
+    Configuration* config = xmlManager.load("./config2.xml");
 
     // Load processes from file
     QMap<QString, QMap<QString, QList<QString>>> processes = config->getProcesses();
-
+    // Constrcut the internal structure
     foreach(QString pName, processes.keys())
     {
         ProcessItem* pI = new ProcessItem(pName);
@@ -208,7 +208,7 @@ void MainWindow::on_configLoadButton_clicked()
             QList<QString> i = p.value(iName);
             InstructionTypes type;
             QList<Resource*> resources;
-            for (int index = 0; index < p.size(); index++)
+            for (int index = 0; index < i.size(); index++)
             {
                 if (index == 0)
                 {
@@ -220,6 +220,8 @@ void MainWindow::on_configLoadButton_clicked()
                     // Sets resources
                     Resource* r = new Resource(i.at(index));
                     resources.append(r);
+                    // Add the resource to the list
+                    resourcesController->add(i.at(index));
                 }
             }
             // Create instruction
@@ -246,6 +248,7 @@ MainWindow::clear()
 
     selectedInstructionItem = NULL;
     selectedProcessItem = NULL;
+   // resourcesController->clearDB();
 }
 
 void
@@ -265,6 +268,7 @@ MainWindow::on_removeResourceButton_clicked()
 void
 MainWindow::on_linkResourceButton_clicked()
 {
+    selectedInstructionItem = selectedProcessItem->getSelectedInstruction();
     Resource* r = resourcesController->getSelectedResource();
     if (r != NULL && selectedInstructionItem != NULL)
     {
@@ -284,7 +288,7 @@ MainWindow::getConfiguration()
         foreach(InstructionItem* i, p->getInstructions())
         {
             QList<QString> instructionMap;
-            instructionMap.append(InstructionTypeStrings[0]);
+            instructionMap.append(InstructionTypeStrings[i->getType()]);
             // Each resource
             foreach(Resource* r, i->getResources())
                 instructionMap.append(r->getName());

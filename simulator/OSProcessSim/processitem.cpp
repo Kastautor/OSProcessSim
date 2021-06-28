@@ -172,3 +172,8 @@ ProcessItem::selectInstruction(InstructionItem* iI)
     emit sendSelection(this);
 }
 
+InstructionItem*
+ProcessItem::getSelectedInstruction()
+{
+    return selectedInstruction;
+}

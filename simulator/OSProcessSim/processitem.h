@@ -22,6 +22,7 @@ public:
     int getCycles() const;
     void reset();
     QString getName();
+    InstructionItem* getSelectedInstruction();
 
 signals:
     void sendSelection(ProcessItem*);

@@ -22,7 +22,7 @@ private:
     void updateView();
 
 public:
-    void add();
+    void add(QString name = "");
     void remove(Configuration config);
     Resource* getSelectedResource();
     void unlink();
