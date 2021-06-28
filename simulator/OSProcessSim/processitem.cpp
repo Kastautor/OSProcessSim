@@ -9,7 +9,7 @@ ProcessItem::ProcessItem(QString name, QWidget * parent)
     if (name.isEmpty())
     {
         QUuid id = QUuid::createUuid();
-        name = id.toString();
+        this->name = id.toString();
     }
     else
     {

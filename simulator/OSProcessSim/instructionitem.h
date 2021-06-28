@@ -13,7 +13,7 @@ class InstructionItem : public QPushButton
     Q_OBJECT
 
 public:
-    InstructionItem(InstructionTypes type);
+    InstructionItem(InstructionTypes type, QString name = "");
     virtual void step();
     bool isFinished();
     void highlight(bool);
@@ -24,6 +24,7 @@ public:
     void reset();
     QList<Resource*> getResources();
     QString getName();
+    void addResource(Resource* resource);
 
 signals:
     void sendSelection(InstructionItem*);

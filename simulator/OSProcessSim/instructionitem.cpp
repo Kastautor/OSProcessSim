@@ -4,10 +4,17 @@
 #include <QDebug>
 #include <QUuid>
 
-InstructionItem::InstructionItem(InstructionTypes type)
+InstructionItem::InstructionItem(InstructionTypes type, QString name)
 {
-    QUuid id = QUuid::createUuid();
-    name = id.toString();
+    if (name.isEmpty())
+    {
+        QUuid id = QUuid::createUuid();
+        this->name = id.toString();
+    }
+    else
+    {
+        this->name = name;
+    }
     this->type = type;
     cycles = 0;
     totalCycles = 0;
@@ -97,4 +104,10 @@ QString
 InstructionItem::getName()
 {
     return name;
+}
+
+void
+InstructionItem::addResource(Resource* resource)
+{
+    resources.append(resource);
 }

@@ -24,7 +24,7 @@ private:
 public:
     void add();
     void remove(Configuration config);
-    void link();
+    Resource* getSelectedResource();
     void unlink();
 };
 

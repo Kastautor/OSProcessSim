@@ -183,10 +183,10 @@ void MainWindow::on_configSaveButton_clicked()
     // Temporary save in a predefined .xml file for development purpose
     // To be replaced by a file selection dialog
     QString algorithm = ui->algorithmSelector->currentText();
-    Configuration config(getProcesses(), algorithm);
+    Configuration config = getConfiguration();
 
     XMLManager xmlManager;
-    xmlManager.save(config, "/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config2.xml");
+    xmlManager.save(config, "./config2.xml");
 }
 
 void MainWindow::on_configLoadButton_clicked()
@@ -197,16 +197,41 @@ void MainWindow::on_configLoadButton_clicked()
     Configuration* config = xmlManager.load("/media/david/Datos/Documentos/Proyecto/OSProcessSim/simulator/OSProcessSim/config.xml");
 
     // Load processes from file
-    QMap<QString, QMap<QString, QString>> processes = config->getProcesses();
+    QMap<QString, QMap<QString, QList<QString>>> processes = config->getProcesses();
 
     foreach(QString pName, processes.keys())
     {
         ProcessItem* pI = new ProcessItem(pName);
-        QMap<QString, QString> p = processes.value(pName);
+        QMap<QString, QList<QString>> p = processes.value(pName);
         foreach(QString iName, p.keys())
         {
-
+            QList<QString> i = p.value(iName);
+            InstructionTypes type;
+            QList<Resource*> resources;
+            for (int index = 0; index < p.size(); index++)
+            {
+                if (index == 0)
+                {
+                    // Sets instructiontype
+                    type = InstructionTypes::Load;
+                }
+                else
+                {
+                    // Sets resources
+                    Resource* r = new Resource(i.at(index));
+                    resources.append(r);
+                }
+            }
+            // Create instruction
+            InstructionItem* iI = new InstructionItem(type, iName);
+            // Add resources to instruction
+            foreach(Resource* r, resources)
+                iI->addResource(r);
+            // Add instruction to process
+            pI->addInstructionItem(iI);
         }
+        // Add process to configuration
+        addProcess(pI);
     }
     repaint();
 }
@@ -230,25 +255,41 @@ MainWindow::on_addResourceButton_clicked()
 }
 
 
-void MainWindow::on_removeResourceButton_clicked()
+void
+MainWindow::on_removeResourceButton_clicked()
 {
     resourcesController->remove(getConfiguration());
+}
+
+
+void
+MainWindow::on_linkResourceButton_clicked()
+{
+    Resource* r = resourcesController->getSelectedResource();
+    if (r != NULL && selectedInstructionItem != NULL)
+    {
+        selectedInstructionItem->addResource(r);
+    }
 }
 
 Configuration
 MainWindow::getConfiguration()
 {
-    QMap<QString, QMap<QString, QString>> map;
+    QMap<QString, QMap<QString, QList<QString>>> map;
     // Each process
     foreach(ProcessItem* p, getProcesses())
     {
         // Each instruction
-        QMap<QString, QString> processMap;
+        QMap<QString, QList<QString>> processMap;
         foreach(InstructionItem* i, p->getInstructions())
         {
+            QList<QString> instructionMap;
+            instructionMap.append(InstructionTypeStrings[0]);
             // Each resource
             foreach(Resource* r, i->getResources())
-                processMap.insert(i->getName(), r->getName());
+                instructionMap.append(r->getName());
+            // Add instructions to process
+            processMap.insert(i->getName(), instructionMap);
         }
         map.insert(p->getName(), processMap);
     }

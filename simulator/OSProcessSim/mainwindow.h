@@ -44,11 +44,14 @@ private slots:
 
     void on_removeResourceButton_clicked();
 
+    void on_linkResourceButton_clicked();
+
 private:
     void addProcess(ProcessItem* p);
     void clear();
     QList<ProcessItem *> getProcesses() const;
     Configuration getConfiguration();
+    void linkResourceToInstruction(QString, InstructionItem*);
 
     Ui::MainWindow *ui;
     ProcessItem *selectedProcessItem = NULL;

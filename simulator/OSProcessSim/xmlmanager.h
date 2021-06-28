@@ -10,8 +10,8 @@ class XMLManager
 {
 public:
     XMLManager();
-    void createProcessNode(QMap<QString, QString> p, xml_node node);
-    void createInstructionNode();
+    void createProcessNode(QMap<QString, QList<QString>> p, xml_node node);
+    void createInstructionNode(QList<QString> i, xml_node node);
     void save(Configuration configuration, QString filePath);
     Configuration* load(QString filePath);
 

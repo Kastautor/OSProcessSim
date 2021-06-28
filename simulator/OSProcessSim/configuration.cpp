@@ -5,13 +5,13 @@ Configuration::Configuration()
 
 }
 
-Configuration::Configuration(QMap<QString, QMap<QString, QString>> processes, QString algorithm)
+Configuration::Configuration(QMap<QString, QMap<QString, QList<QString>>> processes, QString algorithm)
 {
     this->processes = processes;
     this->algorithm = algorithm;
 }
 
-QMap<QString, QMap<QString, QString>>
+QMap<QString, QMap<QString, QList<QString>>>
 Configuration::getProcesses()
 {
     return processes;

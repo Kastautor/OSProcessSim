@@ -58,9 +58,15 @@ ResourcesController::remove(Configuration config)
     updateView();
 }
 
-void
-ResourcesController::link()
+Resource*
+ResourcesController::getSelectedResource()
 {
+    QModelIndexList selected = view->selectionModel()->selectedIndexes();
+    foreach(QModelIndex elem, selected)
+    {
+        QString rName = model->stringList().at(elem.row());
+        return resourcesDB->getResource(rName);
+    }
 
     updateView();
 }
