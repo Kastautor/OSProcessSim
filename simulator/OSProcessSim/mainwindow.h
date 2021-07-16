@@ -46,6 +46,8 @@ private slots:
 
     void on_linkResourceButton_clicked();
 
+    void highLightLinkedInstructions(Resource* resourceName);
+
 private:
     void addProcess(ProcessItem* p);
     void clear();

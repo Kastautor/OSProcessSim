@@ -22,10 +22,21 @@
 
 \chapter{Introduction}
     \section{Overview}
-        This document describes the OS Planning Simulator tool developed under the scope of the "" PFG, and the details about the faced problems and the solutions applied to solve them.
-    \section{Objectives}
-        The aim of this project is to develop a graphical simulator of OS Process Scheduler. The tool includes the most usual planning algorithms that are implemented in known Operative Systems.\\
-        The tool allows the user to analyze, in a step-by-step mode, the logic of the processes execution. The visualization of the concurrency, problems such as deadlocks, and CPU use statistics can provide the user with an intuitive representation of the different situations.
+        This document describes the OS Planning Simulator tool developed under the scope of the PFG, and the details about the faced problems and the solutions applied to solve them.\\
+        The aim of the tool is to simulate and present the concurrency of processes that are executed on a computer processor, manage by the Operating System. The most common algorithms historically used are included to schedule the execution of computer programs, sharing the same CPU.\\
+        Potential problematic situations as deadlocks or low exploitation of CPU can be graphically analyzed to obtain intuitive solutions and test them.
+        \begin{center}
+            \includegraphics[width=8cm]{Mainwindow.png}
+        \end{center} 
+ \section{Objectives}
+        Although the obvious objective of the project is to obtain a useful and robust simulator for educational purposes, some derived objectives can be mentioned:
+        \begin{itemize}
+            \item Familize with GUIs development
+            \item Learn the C++ language and the available standard libraries
+            \item Learn how to develop applications with Qt professional framework
+            \item Practize with the implementation of design patters to obtain good-quiality, reusable and maintainable code
+        \end{itemize}
+        This document shows the problems faced during the development and the reasons of the different decissions taken.\\
     \section{Algorithms}
         This chapter describes the different algorithms used through the history of the computing science. These methods are available in the developed simulation tool, makin possible the comparison of their efficiency.
         \subsection{FCFS (Fisrt come First server}
@@ -33,13 +44,7 @@
         \subsection{Round Robin}
         \subsection{Priorities Algorithms}
 
-    \section{Other Simulators}
-        \subsection{A Neural Network Playground}
-            This simulator is availaible in the web (https://playground.tensorflow.org/)
-            \begin{center}
-                \includegraphics[width=8cm]{Playground.png}
-            \end{center}  
 \chapter{Application Development}
-
+\chapter{User Manual}
 \chapter{References}
 \end{document}

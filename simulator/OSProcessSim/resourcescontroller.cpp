@@ -13,11 +13,23 @@ ResourcesController::ResourcesController(QListView* view)
 
     model = new QStringListModel();
     view->setModel(model);
+
+    connect(this->view, SIGNAL(clicked(QModelIndex)), this, SLOT(selectResource(QModelIndex)));
 }
 
 ResourcesController::~ResourcesController()
 {
 
+}
+
+void
+ResourcesController::selectResource(const QModelIndex q)
+{
+    QStringList list = model->stringList();
+    QString name = list.at(q.row());
+    Resource* r = resourcesDB->getResource(name);
+
+    emit sendResource(r);
 }
 
 void
@@ -29,6 +41,8 @@ ResourcesController::updateView()
         list << r->getName();
     }
     model->setStringList(list);
+
+    // Get the
 }
 
 void
@@ -55,7 +69,17 @@ ResourcesController::add(QString name)
 }
 
 void
-ResourcesController::remove(Configuration config)
+ResourcesController::add(Resource* resource)
+{
+    if (resource != NULL)
+    {
+        resourcesDB->addResource(resource);
+    }
+    updateView();
+}
+
+void
+ResourcesController::remove()
 {
     QModelIndexList selected = view->selectionModel()->selectedIndexes();
     foreach(QModelIndex elem, selected)
@@ -76,7 +100,7 @@ ResourcesController::getSelectedResource()
         return resourcesDB->getResource(rName);
     }
 
-    updateView();
+    //updateView();
 }
 
 void

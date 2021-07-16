@@ -10,7 +10,7 @@
 
 class ResourcesController : public QObject
 {
-
+    Q_OBJECT
 public:
     ResourcesController(QListView* view);
     ~ResourcesController();
@@ -21,9 +21,16 @@ private:
 
     void updateView();
 
+protected slots:
+    void selectResource(const QModelIndex);
+
+signals:
+    void sendResource(Resource*);
+
 public:
     void add(QString name = "");
-    void remove(Configuration config);
+    void add(Resource* resource);
+    void remove();
     Resource* getSelectedResource();
     void unlink();
 };

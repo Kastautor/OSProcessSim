@@ -29,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Set programsArea layout
     ui->programsArea->setLayout(new QHBoxLayout(this));
+
+    // Connect resources controller to update view
+    connect(resourcesController, SIGNAL(sendResource(Resource*)), this, SLOT(highLightLinkedInstructions(Resource*)));
 }
 
 MainWindow::~MainWindow()
@@ -36,7 +39,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_sumButton_clicked()
+void
+MainWindow::on_sumButton_clicked()
 {
     // Selected process
     if (selectedProcessItem != 0)
@@ -197,38 +201,37 @@ void MainWindow::on_configLoadButton_clicked()
     Configuration* config = xmlManager.load("./config2.xml");
 
     // Load processes from file
-    QMap<QString, QMap<QString, QList<QString>>> processes = config->getProcesses();
+    QMap<QString, QMap<QString, QList<QString>>> processesMap = config->getProcesses();
     // Constrcut the internal structure
-    foreach(QString pName, processes.keys())
+    foreach(QString pName, processesMap.keys())
     {
         ProcessItem* pI = new ProcessItem(pName);
-        QMap<QString, QList<QString>> p = processes.value(pName);
+        QMap<QString, QList<QString>> p = processesMap.value(pName);
         foreach(QString iName, p.keys())
         {
             QList<QString> i = p.value(iName);
             InstructionTypes type;
-            QList<Resource*> resources;
+            // Create instruction
+            InstructionItem* iI;
             for (int index = 0; index < i.size(); index++)
             {
                 if (index == 0)
                 {
                     // Sets instructiontype
                     type = InstructionTypes::Load;
+                    iI = new InstructionItem(type, iName);
                 }
                 else
                 {
                     // Sets resources
                     Resource* r = new Resource(i.at(index));
-                    resources.append(r);
-                    // Add the resource to the list
-                    resourcesController->add(i.at(index));
+                    // Add resources to instruction
+                    iI->addResource(r);
+                    // Add the resource to the controller
+                    resourcesController->add(r);
                 }
             }
-            // Create instruction
-            InstructionItem* iI = new InstructionItem(type, iName);
-            // Add resources to instruction
-            foreach(Resource* r, resources)
-                iI->addResource(r);
+
             // Add instruction to process
             pI->addInstructionItem(iI);
         }
@@ -261,7 +264,7 @@ MainWindow::on_addResourceButton_clicked()
 void
 MainWindow::on_removeResourceButton_clicked()
 {
-    resourcesController->remove(getConfiguration());
+    resourcesController->remove();
 }
 
 
@@ -273,6 +276,7 @@ MainWindow::on_linkResourceButton_clicked()
     if (r != NULL && selectedInstructionItem != NULL)
     {
         selectedInstructionItem->addResource(r);
+        highLightLinkedInstructions(r);
     }
 }
 
@@ -299,4 +303,26 @@ MainWindow::getConfiguration()
     }
 
     return Configuration(map, ui->algorithmSelector->currentText());
+}
+
+void
+MainWindow::highLightLinkedInstructions(Resource* resource)
+{
+    foreach (ProcessItem* p, getProcesses())
+    {
+        foreach (InstructionItem* i, p->getInstructions())
+        {
+            foreach (Resource* r, i->getResources())
+            if(r == resource)
+            {
+                i->highlight(true);
+                // Only needs to detect the first dependence (if several)
+                continue;
+            }
+            else
+            {
+                i->highlight(false);
+            }
+        }
+    }
 }
