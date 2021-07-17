@@ -11,7 +11,7 @@
 
 \title{\Huge Simulador de Planificación de Procesos}
 \author{David Castaño de la Mota \\ DNI: 07246190V \\ Email: davidcastanomota@gmail.com\\Madrid}
-\date{21 de Diciembre de 2020}
+\date{17 de Julio de 2021}
 
 
 \begin{document}
@@ -39,12 +39,73 @@
         This document shows the problems faced during the development and the reasons of the different decissions taken.\\
     \section{Algorithms}
         This chapter describes the different algorithms used through the history of the computing science. These methods are available in the developed simulation tool, makin possible the comparison of their efficiency.
-        \subsection{FCFS (Fisrt come First server}
+        \subsection{FCFS (First come First server}
         \subsection{SJF (Short Job First)}
         \subsection{Round Robin}
         \subsection{Priorities Algorithms}
 
 \chapter{Application Development}
-\chapter{User Manual}
+    This sections describes how the software has been designed, implemented and released. It includes the differnet problems faced during its development and the solutions adopted.
+    \section{Requirements}
+    \subsection{Use Cases}
+    \section{Software Design}
+    \subsection{System Sequence Diagrams}
+    \subsection{Class Diagrams}
+    \subsection{Design Patters}
+    \section{Problems and Solutions}
+\chapter{Application Description}
+    \section{Overview}
+        The following image shows the main interface of the application. Three zones are clearly defined:
+        \begin{center}
+            \includegraphics[width=8cm]{Mainwindow.png}
+        \end{center} 
+        \begin{itemize}
+            \item Resources panel: Shows the available resources used by the different process. Each resource (representing files, memory locations, registers, etc) can be linked to different instructions, which can use (read, write), block or release them.
+            \item Processes panel: These processes can be added and deleted by the user. The processes consist of one or more instructions, whose CPU required ticks to complete its execution are shown.
+            \item Controls: The different controls to configure and execute the simulation.
+            \begin{itemize}
+                \item Process management buttons
+                \item Instruction management buttons
+                \item Configuration save / load menus
+                \item Scheduler algorithm selector
+                \item Simulation control
+            \end{itemize}
+        \end{itemize}
+        Once the processes and the sheduler algorithm have been configured, the 'Begin' button can be pushed to begin the simulation. A step-by-step button is available to exectute the CPU ticks, visualizing how the instructions are selectioned by the O.S. and their execution is acomplished.\\
+        The tool has the capability to detect the starving or deadlock problems to finish the simulation and aware the user.
+    \section{Features}
+        The simulation tool has been developed to analyze the behaviour of the computer during the concurrent execution of processes, managed by the Operating System process scheduler.\\
+        \subsection{Shared resources and Expropiation}
+            Those resources shared among the different processes are located in the 'Resources panel'. During the programs execution the following operations can affect them:
+            \begin{itemize}
+                \item Lock: The resource is not available for any process, except the one which blocked it.
+                \item Release: The resource can be assigned again to any process for its use.
+            \end{itemize}
+            To facilitate the implementation and testing of the first version of the tool, the resources have no content. That means that they can be used to simulate situations as starving or deadlocks.
+        \subsection{Race condition}
+            No race condition simulation effect can be simulated, as the tool does not assign values to resources, only detects the execution dependences to simulate.\\
+            (QUESTION ¿?: Perhaps in this point, the resources could store the order of the processes access to see that when different algorithms are used and there is not mutual exclusion, that order could change).            
+        \subsection{Mutual Exclusion}
+            The resoruces can be assigned to different processes. In order to control and assure their corrent access they can be Locked/Released by the different processes by means of special instructions.
+        \subsection{Interruptions}
+            Interruptions can be simulated by means of instructions, which have a big amount of required ticks to be acomplished (not shown in the GUI).\\
+            (QUESTION ¿?: It makes easy their implementation, but they do not have a special meaning in terms of behaviour or resources protection. The later effect must be simulated using Lock/Release instructions).
+        \subsection{Starving}
+            Starving occurs when the processes are never scheduled for its execution, due to the priorities used by the O.S. to assign the CPU. This situation
+        \subsection{Semaphores}
+            Not implemented
+        \subsection{Mutexes}
+            The mutexes can be configured by means of the Lock/Release instructions.
+        \subsection{Monitors}
+            Not implemented
+        \subsection{Deadlock simulation}
+            The assignation of the resources to the different instructions, allowing them to be locked (i.e semaphores) by the later, could lead to odd situations. 
+        \subsection{CPU exploitation}
+            The different selection of sheduler algorithms could lead to a better/worse exploitation of the CPU.\\
+            To analyze the different performances, a summary report is generated at the end of the simulation, showing the required CPU ticks, the wasted CPU time, etc
+        \subsection{Threads}
+            Not implemented
+        
 \chapter{References}
+    1. Andrew S. Tanenbaum, "Sistemas Operativos Modernos", 3rd edition. 2009.
 \end{document}
